@@ -1,0 +1,13 @@
+:root {
+  --background-color-primary: #90ee90;
+  --background-color-secondary: #ffffe0;
+}
+body {
+  margin: 0;
+
+}
+.link {
+  text-decoration: none;
+  color: black;
+}
+

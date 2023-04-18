@@ -1,0 +1,29 @@
+.footer-icon-container {
+  display: flex;
+  justify-content: center;
+  gap: 3em;
+}
+
+.footer-wrapper {
+  max-width: 1280px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-top: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 1.4em;
+}
+
+.footer-options-container {
+  display: flex;
+  gap: 2em;
+  justify-content: center;
+}
+
+.footer-created-by {
+  display: flex;
+  align-items: center;
+  gap: 0.2em;
+  justify-content: center;
+  align-items: center;
+}

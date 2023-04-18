@@ -1,0 +1,22 @@
+.table {
+  border-collapse: collapse;
+  font-size: 1.8rem;
+  width: 100%;
+}
+
+.table th,
+.table td {
+  border: 1px solid black;
+  padding: 2rem;
+  padding-left: 2rem;
+}
+
+.table th {
+  text-align: left;
+}
+
+@media screen and (min-width: 800px) {
+  .table {
+    font-size: 2rem;
+  }
+}

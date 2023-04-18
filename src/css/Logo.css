@@ -1,0 +1,13 @@
+html {
+  font-size: 62.5%;
+}
+
+.logo {
+  width: 16rem;
+  margin: 1rem;
+  margin-left: 30px;
+}
+
+.logo:hover {
+  cursor: pointer;
+}
