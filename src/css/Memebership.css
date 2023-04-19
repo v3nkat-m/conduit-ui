@@ -13,7 +13,7 @@
   display: flex;
   flex-direction: column;
   gap: 0.5em;
-  height: 500px;
+  height: 50rem;
 }
 .membership-container2 {
   max-width: 1280px;

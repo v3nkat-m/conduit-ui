@@ -22,9 +22,9 @@ export default function Header() {
           </Link>
           <Link
             to={'/login'}
-            className='link'
+            className='link header-hide-signin'
           >
-            <h3>Sign In</h3>
+            <h3 >Sign In</h3>
           </Link>
           <Link
             to={'/login'}

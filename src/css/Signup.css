@@ -1,0 +1,76 @@
+.signup-header {
+  font-size: 2rem;
+  color: brown;
+  text-align: center;
+}
+
+.signup-button {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  justify-content: center;
+  min-width: 280px;
+  min-height: 40px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  border-radius: 10px;
+}
+
+.fb {
+  background-color: #4267b2;
+  color: whitesmoke;
+}
+
+.google {
+  background-color: whitesmoke;
+}
+
+.signup-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  font-size: 1.5rem;
+}
+
+.signup-button2 {
+  min-width: 100px;
+  padding: 10px 20px;
+  border-radius: 10px;
+  background-color: var(--background-color-primary);
+  font-weight: bold;
+}
+
+.signup-main-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+  justify-content: center;
+  align-items: center;
+  border-bottom: 1px solid;
+  background-color: antiquewhite;
+}
+
+.signup-center {
+  text-align: center;
+  font-weight: bold;
+}
+
+.signup-logo {
+  margin-left: -25px;
+}
+
+.signup-space {
+  margin-top: 5px;
+  margin-bottom: 10px;
+  font-weight: bold;
+}
+.signup-small {
+  font-size: 1rem;
+}
+
+@media screen and (min-width: 800px) {
+  .signup-header {
+    font-size: 3rem;
+    font-weight: bold;
+  }
+}

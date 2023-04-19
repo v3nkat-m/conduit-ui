@@ -38,7 +38,11 @@
   display: none;
 }
 
-.header-hide-btn{
+.header-hide-btn {
+  display: none;
+}
+
+.header-hide-signin {
   display: none;
 }
 
@@ -48,7 +52,13 @@
   }
 }
 
-@media screen and (min-width: 400px) {
+@media screen and (min-width: 420px) {
+  .header-hide-signin {
+    display: block;
+  }
+}
+
+@media screen and (min-width: 500px) {
   .header-hide-btn {
     display: block;
   }

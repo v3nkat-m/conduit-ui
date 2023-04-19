@@ -60,7 +60,7 @@ export default function Table() {
         <tr>
           <th>Benefits</th>
           <th>Conduit</th>
-          <th>Conduit+</th>
+          <th className='bold-conduit'>Conduit+</th>
         </tr>
       </thead>
       <tbody>
