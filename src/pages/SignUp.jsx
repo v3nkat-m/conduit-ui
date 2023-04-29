@@ -4,7 +4,6 @@ import EmailIcon from '@mui/icons-material/Email'
 import FacebookIcon from '@mui/icons-material/Facebook'
 import '../css/Signup.css'
 import Logo from '../components/Logo'
-import Input from '../components/Input'
 import Footer from '../components/Footer'
 
 export default function SignUp() {
@@ -44,23 +43,32 @@ export default function SignUp() {
           <div>
             <div>
               <div className='signup-space'>What's your email?</div>
-              <Input
+              <input
                 value={mail}
                 onChange={handleMailChange}
+                placeholder='Enter your mail'
+                onFocus={(e) => (e.target.placeholder = '')}
+                onBlur={(e) => (e.target.placeholder = 'Enter your mail')}
               />
             </div>
             <div>
               <div className='signup-space'>Create a password</div>
-              <Input
+              <input
                 value={password}
                 onChange={handlePasswordChange}
+                placeholder='Enter a password'
+                onFocus={(e) => (e.target.placeholder = '')}
+                onBlur={(e) => (e.target.placeholder = 'Enter your password')}
               />
             </div>
             <div>
               <div className='signup-space'>What should we call you?</div>
-              <Input
+              <input
                 value={name}
                 onChange={handleNameChange}
+                placeholder='Enter your name'
+                onFocus={(e) => (e.target.placeholder = '')}
+                onBlur={(e) => (e.target.placeholder = 'Enter your name')}
               />
               <div className='signup-small'>*This appears on your profile.</div>
             </div>

@@ -58,7 +58,7 @@
   }
 }
 
-@media screen and (min-width: 500px) {
+@media screen and (min-width: 550px) {
   .header-hide-btn {
     display: block;
   }
