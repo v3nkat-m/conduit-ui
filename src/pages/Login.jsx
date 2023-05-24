@@ -1,20 +1,62 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import Logo from '../components/Logo'
 import FacebookIcon from '@mui/icons-material/Facebook'
 import GoogleIcon from '@mui/icons-material/Google'
 import '../css/Login.css'
+import axios from 'axios'
+import { ToastContainer, toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
+const BASE_URL = 'http://localhost:3001'
+axios.defaults.baseURL = 'http://localhost:3000'
+axios.defaults.withCredentials = true
 
 export default function Login() {
-  const [mail, setMail] = useState('')
+  const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+  const [errorMessage, setErrorMessage] = useState('')
+
+  const containerRef = useRef(null)
+
+  function handleLogin() {
+    setErrorMessage('')
+
+    axios
+      .post('http://localhost:3000/auth/login', {
+        email: email,
+        password: password,
+      })
+      .then(response => {
+        console.log(response.data.message)
+        window.location.href = `${BASE_URL}/home`
+      })
+      .catch(error => {
+        console.log(error.response.data.message)
+        setErrorMessage(error.response.data.message)
+      })
+  }
+
+  function handleGoogleRedirect() {
+    window.location.href = 'http://localhost:3000/auth/google'
+  }
 
   function handlePasswordChange(event) {
     setPassword(event.target.value)
   }
 
-  function handleMailChange(event) {
-    setMail(event.target.value)
+  function handleEmailChange(event) {
+    setEmail(event.target.value)
   }
+
+  function handleSubmit(event) {
+    event.preventDefault()
+    handleLogin()
+  }
+
+  useEffect(() => {
+    if (errorMessage) {
+      toast.error(errorMessage, { containerId: 'container' })
+    }
+  }, [errorMessage])
 
   return (
     <div className='login-wrapper'>
@@ -25,7 +67,7 @@ export default function Login() {
           <FacebookIcon fontSize='large' />
           <div>CONTINUE WITH FACEBOOK</div>
         </button>
-        <button className='login-flex-btn'>
+        <button className='login-flex-btn' onClick={handleGoogleRedirect}>
           <GoogleIcon fontSize='large' />
           <div>CONTINUE WITH GOOGLE</div>
         </button>
@@ -36,34 +78,35 @@ export default function Login() {
           <div className='login-text'>Email address</div>
           <input
             type='text'
-            value={mail}
-            onChange={handleMailChange}
-            placeholder = 'Enter your mail'
-            onFocus = {(e)=> e.target.placeholder=''}
-            onBlur = {(e)=>e.target.placeholder = 'Enter your mail'}
+            value={email}
+            onChange={handleEmailChange}
+            placeholder='Enter your mail'
+            onFocus={e => (e.target.placeholder = '')}
+            onBlur={e => (e.target.placeholder = 'Enter your mail')}
             className='login-input'
           />
         </div>
         <div>
           <div className='login-text'>Password</div>
           <input
-            type='text'
+            type='password'
             value={password}
             onChange={handlePasswordChange}
             placeholder='Enter your password'
-            onFocus={(e)=>e.target.placeholder=''}
-            onBlur={(e)=>e.target.placeholder='Enter your password'}
+            onFocus={e => (e.target.placeholder = '')}
+            onBlur={e => (e.target.placeholder = 'Enter your password')}
             className='login-input'
           />
         </div>
       </div>
-      <a href='/'>Forgot your password?</a>
+      <a href='/auth/change-password'>Forgot your password?</a>
       <div>
         <div>
           <div>Remember me</div>
         </div>
-        <button>LOG IN</button>
+        <button onClick={handleSubmit}>LOG IN</button>
       </div>
+      <ToastContainer ref={containerRef} containerId='container' />
     </div>
   )
 }

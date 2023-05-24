@@ -21,13 +21,13 @@ export default function Header() {
             <h3 className='header-hide-mobile'>Conduit+</h3>
           </Link>
           <Link
-            to={'/login'}
+            to={'/auth/login'}
             className='link header-hide-signin'
           >
             <h3 >Sign In</h3>
           </Link>
           <Link
-            to={'/login'}
+            to={'/auth/signup'}
             className='link'
           >
             <button className='header-button header-hide-btn'>

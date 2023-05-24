@@ -1,29 +1,70 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import Header from '../components/Header'
 import '../css/Memebership.css'
 import Table from '../components/Table'
 import '../css/Review.css'
 import ReviewSection from '../components/ReviewSection'
 import Footer from '../components/Footer'
+import axios from 'axios'
+import Header2 from '../components/Header2'
 
 export default function Membership() {
+  const [isLoggedIn, setIsLoggedIn] = useState(false)
+  const [userRole, setUserRole] = useState(null)
+  const [isCheckingLogin, setIsCheckingLogin] = useState(true)
+
+  useEffect(() => {
+    const fetchUserStatus = async () => {
+      try {
+        const response = await axios.get('/auth/userstatus', {
+          withCredentials: true,
+        })
+        console.log('User response', response.data)
+        setIsLoggedIn(response.data.isLoggedIn)
+        setUserRole(response.data.userRole)
+      } catch (error) {
+        console.error('Error fetching user status', error)
+      } finally {
+        setIsCheckingLogin(false)
+      }
+    }
+    fetchUserStatus()
+  }, [])
+  const NotLoggedInDiv = () => (
+    <>
+      <p className='membership-para'>
+        To upgrade to <span className='membership-span2'>Conduit+</span> you
+        need an account. Join or sign in to continue
+      </p>
+      <button className='membership-btn'>Join Conduit Now</button>
+      <p className='membership-signin'>
+        Already have a Conduit account? <a href='/login'>Sign In</a>
+      </p>
+    </>
+  )
+  const LoggedInDiv = () => (
+    <>
+      <p className='membership-para'>
+        To upgrade to <span className='membership-span2'>Conduit+</span> just
+        pay 1$ per month.
+      </p>
+      <button className='membership-btn'>Join Conduit+</button>
+    </>
+  )
   return (
     <div>
       <div className='membership-wrapper'>
-        <Header />
+        {!isLoggedIn && !isCheckingLogin ? <Header /> : <Header2 />}
         <div className='membership-container'>
           <h1 className='membership-header'>
             Upgrade to <span className='membership-span'>Conduit+</span> and
             amplify your stories.
           </h1>
-          <p className='membership-para'>
-            To upgrade to <span className='membership-span2'>Conduit+</span> you
-            need an account. Join or sign in to continue
-          </p>
-          <button className='membership-btn'>Join Conduit Now</button>
-          <p className='membership-signin'>
-            Already have a Conduit account? <a href='/login'>Sign In</a>
-          </p>
+          {!isLoggedIn && !isCheckingLogin ? (
+            <NotLoggedInDiv />
+          ) : (
+            <LoggedInDiv />
+          )}
         </div>
       </div>
       <div className='membership-container2'>
@@ -53,8 +94,7 @@ export default function Membership() {
         </p>
         <ReviewSection />
       </div>
-        <Footer />
-
+      <Footer />
     </div>
   )
 }

@@ -5,18 +5,35 @@ import FacebookIcon from '@mui/icons-material/Facebook'
 import '../css/Signup.css'
 import Logo from '../components/Logo'
 import Footer from '../components/Footer'
+import axios from 'axios'
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export default function SignUp() {
-  const [mail, setMail] = useState('')
+  const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [name, setName] = useState('')
+
+
+  function handleSignup(){
+    axios.post('http://localhost:3000/auth/signup',{email,password})
+    .then((res)=>{
+      console.log(res.data)
+      toast.success('User Created.Kindly proceed to login')
+    })
+    .catch((err)=>{
+      console.log(err)
+      toast.error(err.response.data.message);
+    })
+  }
+
 
   function handleNameChange(event) {
     setName(event.target.value)
   }
 
-  function handleMailChange(event) {
-    setMail(event.target.value)
+  function handleEmailChange(event) {
+    setEmail(event.target.value)
   }
 
   function handlePasswordChange(event) {
@@ -44,8 +61,8 @@ export default function SignUp() {
             <div>
               <div className='signup-space'>What's your email?</div>
               <input
-                value={mail}
-                onChange={handleMailChange}
+                value={email}
+                onChange={handleEmailChange}
                 placeholder='Enter your mail'
                 onFocus={(e) => (e.target.placeholder = '')}
                 onBlur={(e) => (e.target.placeholder = 'Enter your mail')}
@@ -54,6 +71,7 @@ export default function SignUp() {
             <div>
               <div className='signup-space'>Create a password</div>
               <input
+                type='password'
                 value={password}
                 onChange={handlePasswordChange}
                 placeholder='Enter a password'
@@ -74,11 +92,12 @@ export default function SignUp() {
             </div>
           </div>
         </div>
-        <button className='signup-button2'>Sign up</button>
-        <div>Have an account? Log in</div>
+        <button className='signup-button2' onClick={handleSignup}>Sign up</button>
+        <div>Have an account? <a href='/auth/login'>Log in</a></div>
         <div className='signup-footer'></div>
       </div>
       <Footer />
+      <ToastContainer />
     </div>
   )
 }

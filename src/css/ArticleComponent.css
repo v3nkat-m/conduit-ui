@@ -1,0 +1,35 @@
+.article-userimg {
+  height: 25px;
+  width: 25px;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+.article-img {
+  height: 70px;
+  width: 70px;
+  object-fit: cover;
+}
+.article-card {
+  height: 150px;
+  width: 500px;
+  margin-bottom: 10px;
+  padding-right: 20px;
+  border-bottom: 1px solid grey;
+}
+.article-flex1 {
+  display: flex;
+  font-size: 1.3rem;
+  align-items: center;
+  gap: 1em;
+}
+.article-subflex {
+  display: flex;
+  flex-direction: column;
+}
+.article-flex2 {
+  display: flex;
+  gap: 1em;
+  align-items: center;
+  justify-content: space-between;
+}
