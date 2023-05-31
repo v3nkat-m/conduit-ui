@@ -10,7 +10,14 @@ import SignUp from './pages/SignUp.jsx'
 import ChangePassword from './pages/ChangePassword.jsx'
 import Write from './pages/Write.jsx'
 import ProfilePage from './pages/ProfilePage.jsx'
+import OtherUserProfilePage from './pages/OtherUserProfilePage.jsx'
 import Article from './pages/Article.jsx'
+import { UserContextProvider } from './context/UserContextProvider'
+import { QueryClient, QueryClientProvider } from 'react-query'
+import { TagsProvider } from './context/TagsContext'
+import Edit from './pages/Edit.jsx'
+import SearchResultsPage from './pages/SearchResultsPage.jsx'
+const queryClient = new QueryClient()
 
 const root = ReactDOM.createRoot(document.getElementById('root'))
 
@@ -21,7 +28,11 @@ const router = createBrowserRouter([
   },
   {
     path: '/membership',
-    element: <Membership />,
+    element: (
+      <UserContextProvider>
+        <Membership />{' '}
+      </UserContextProvider>
+    ),
   },
   {
     path: '/auth/login',
@@ -41,17 +52,35 @@ const router = createBrowserRouter([
     element: <Write />,
   },
   {
+    path: '/edit/:id',
+    element: <Edit />,
+  },
+  {
     path: '/profile',
     element: <ProfilePage />,
+  },
+  {
+    path: '/search',
+    element: <SearchResultsPage />,
   },
   {
     path: '/articles/:id',
     element: <Article />,
   },
+  {
+    path: '/users/profile/:userId',
+    element: <OtherUserProfilePage />,
+  },
 ])
 
 root.render(
   <React.StrictMode>
-    <RouterProvider router={router} />
+    <QueryClientProvider client={queryClient}>
+      <TagsProvider>
+        <UserContextProvider>
+          <RouterProvider router={router} />
+        </UserContextProvider>
+      </TagsProvider>
+    </QueryClientProvider>
   </React.StrictMode>
 )

@@ -1,6 +1,10 @@
-import React from 'react'
+import React, { useState } from 'react'
 import '../css/ArticleComponent.css'
 import { Link } from 'react-router-dom'
+import MoreHorizIcon from '@mui/icons-material/MoreHoriz'
+import Menu from '@mui/material/Menu'
+import MenuItem from '@mui/material/MenuItem'
+import axios from 'axios'
 
 function convertHtmlToPlainText(html) {
   const doc = new DOMParser().parseFromString(html, 'text/html')
@@ -8,6 +12,27 @@ function convertHtmlToPlainText(html) {
 }
 
 export default function ArticleComponent({ user, articles }) {
+  const [anchorEl, setAnchorEl] = useState(null)
+  const [currentArticleId, setCurrentArticleId] = useState(null)
+
+  const handleClick = (event, articleId) => {
+    setCurrentArticleId(articleId)
+    setAnchorEl(event.currentTarget)
+  }
+
+  const handleClose = () => {
+    setAnchorEl(null)
+  }
+
+  const handleEdit = () => {
+    handleClose()
+  }
+
+  const handleDelete = async () => {
+    axios.delete(`/articles/deletearticle/${currentArticleId}`)
+    handleClose()
+  }
+
   return (
     <div>
       {articles.map((article, index) => {
@@ -23,9 +48,23 @@ export default function ArticleComponent({ user, articles }) {
         return (
           <div key={article._id} className='article-card'>
             <div className='article-flex1'>
-              <img src={user.picture} className='article-userimg'></img>
-              <p>{user.name}</p>
+              {/* <img src={user.picture} className='article-userimg'></img> */}
+              {/* <p>{user.name}</p> */}
               <p>{formattedDate}</p>
+              <MoreHorizIcon
+                onClick={event => handleClick(event, article._id)}
+              />
+              <Menu
+                anchorEl={anchorEl}
+                open={Boolean(anchorEl)}
+                onClose={handleClose}
+              >
+                <MenuItem onClick={handleEdit}>
+                  <Link to={`/edit/${currentArticleId}`}>Edit</Link>
+                </MenuItem>
+
+                <MenuItem onClick={handleDelete}>Delete</MenuItem>
+              </Menu>
             </div>
             <div className='article-flex2'>
               <div className='article-subflex'>

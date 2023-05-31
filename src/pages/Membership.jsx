@@ -1,35 +1,72 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useState, useEffect } from 'react'
 import Header from '../components/Header'
 import '../css/Memebership.css'
 import Table from '../components/Table'
 import '../css/Review.css'
 import ReviewSection from '../components/ReviewSection'
 import Footer from '../components/Footer'
-import axios from 'axios'
 import Header2 from '../components/Header2'
+import axios from 'axios'
+import { useUserStatus } from '../hooks/useUserState'
+import { loadStripe } from '@stripe/stripe-js'
+import { useFetchUser } from '../hooks/useFetchUser'
+import { UserContextProvider } from '../context/UserContextProvider'
+
+const stripePromise = loadStripe(
+  'pk_test_51N5aXjSJiG7glEVu3wISGiuqsjAg94BcgwH8d6pE2IlK5SqLbFHB6TdMO3wrJzvlMgmV08WcbyOMGDfRVhn3V28n00hAzjdECn'
+)
 
 export default function Membership() {
-  const [isLoggedIn, setIsLoggedIn] = useState(false)
-  const [userRole, setUserRole] = useState(null)
-  const [isCheckingLogin, setIsCheckingLogin] = useState(true)
+  // const userId = useContext(UserContextProvider) // Replace this with actual userId
+  const [currentUserId, setCurrentUserId] = useState(null)
 
   useEffect(() => {
-    const fetchUserStatus = async () => {
+    const fetchCurrentUserId = async () => {
       try {
-        const response = await axios.get('/auth/userstatus', {
-          withCredentials: true,
-        })
-        console.log('User response', response.data)
-        setIsLoggedIn(response.data.isLoggedIn)
-        setUserRole(response.data.userRole)
+        const response = await axios.get('/auth/userstatus')
+        setCurrentUserId(response.data.UserId)
+        console.log('usercontext response.data:', response.data.UserId)
       } catch (error) {
         console.error('Error fetching user status', error)
-      } finally {
-        setIsCheckingLogin(false)
       }
     }
-    fetchUserStatus()
+    console.log('currentuserId', currentUserId)
+
+    fetchCurrentUserId()
   }, [])
+  console.log('currentuserId', currentUserId)
+  const { user } = useFetchUser(currentUserId)
+  // Fetch user data using custom hook
+  console.log({ user })
+  useEffect(() => {
+    console.log('currentuserId', currentUserId)
+  }, [currentUserId])
+
+  const handlePayment = async () => {
+    try {
+      const response = await axios.post('/stripe/create-checkout-session', {
+        userId: user._id,
+        userEmail: user.email,
+      })
+
+      const sessionId = response.data.sessionId
+
+      // Redirect to Checkout
+      const stripe = await stripePromise
+      const { error } = await stripe.redirectToCheckout({
+        sessionId,
+      })
+
+      if (error) {
+        // Handle error here
+        console.error(error)
+      }
+    } catch (err) {
+      // Handle error here
+      console.error(err)
+    }
+  }
+  const { isLoggedIn, userRole, isCheckingLogin } = useUserStatus()
   const NotLoggedInDiv = () => (
     <>
       <p className='membership-para'>
@@ -48,7 +85,9 @@ export default function Membership() {
         To upgrade to <span className='membership-span2'>Conduit+</span> just
         pay 1$ per month.
       </p>
-      <button className='membership-btn'>Join Conduit+</button>
+      <button className='membership-btn' onClick={handlePayment}>
+        Join Conduit+
+      </button>
     </>
   )
   return (

@@ -1,54 +1,24 @@
 import React, { useState, useEffect, useRef } from 'react'
 import axios from 'axios'
-import { useNavigate } from 'react-router-dom'
-import Editor from '../components/Editor'
 import Header2 from '../components/Header2'
 import Header from '../components/Header'
 import 'medium-editor/dist/css/medium-editor.min.css'
 import 'medium-editor/dist/css/themes/default.min.css'
 import MediumEditor from 'medium-editor'
+import { useRedirect } from '../hooks/useRedirect'
+import { useUserStatus } from '../hooks/useUserState'
 
 export default function Write() {
-  const navigate = useNavigate()
+  const navigate = useRedirect()
 
-  useEffect(() => {
-    const checkAuthentication = async () => {
-      try {
-        const response = await axios.get('/auth/userstatus')
-        const { isLoggedIn } = response.data
-        if (!isLoggedIn) {
-          navigate('/auth/signup') // Redirect to signup page if not logged in
-        }
-      } catch (error) {
-        console.error('Error checking authentication:', error)
-      }
-    }
-
-    checkAuthentication()
-  }, [navigate])
-
-  const [isLoggedIn, setIsLoggedIn] = useState(false)
-  const [userRole, setUserRole] = useState(null)
   const [title, setTitle] = useState('')
   const [subtitle, setSubtitle] = useState('')
   const [mainContent, setMainContent] = useState('')
   const [picture, setPicture] = useState(null)
+  const [selectedTag, setSelectedTag] = useState(null)
+  const [tags, setTags] = useState([])
 
-  useEffect(() => {
-    const fetchUserStatus = async () => {
-      try {
-        const response = await axios.get('/auth/userstatus', {
-          withCredentials: true,
-        })
-        console.log('User response', response.data)
-        setIsLoggedIn(response.data.isLoggedIn)
-        setUserRole(response.data.userRole)
-      } catch (error) {
-        console.error('Error fetching user status', error)
-      }
-    }
-    fetchUserStatus()
-  }, [])
+  const { isLoggedIn, userRole } = useUserStatus()
 
   const titleEditorRef = useRef()
   const subtitleEditorRef = useRef()
@@ -96,12 +66,30 @@ export default function Write() {
       setMainContent(content)
     })
 
+    const fetchTags = async () => {
+      try {
+        const res = await axios.get('tags/tags')
+        setTags(res.data)
+      } catch (err) {
+        console.error('Failed to fetch tags:', err)
+      }
+    }
+    fetchTags()
+    // Cleanup function
     return () => {
       titleEditor.destroy()
       subtitleEditor.destroy()
       mainContentEditor.destroy()
     }
+
+    fetchTags()
   }, [])
+
+  const handleTagChange = e => {
+    setSelectedTag(
+      Array.from(e.target.selectedOptions, option => option.innerText)
+    )
+  }
 
   const handlePublish = async () => {
     let articleId = null
@@ -112,6 +100,7 @@ export default function Write() {
         title,
         subtitle,
         content: mainContent,
+        tags: selectedTag,
       })
       console.log(response.data) // This is the created article
       articleId = response.data._id // Store the created article's ID
@@ -171,6 +160,16 @@ export default function Write() {
       <div>
         <label>Featured Image:</label>
         <input type='file' onChange={handlePictureChange} />
+      </div>
+      <div>
+        <label>Tags:</label>
+        <select multiple onChange={handleTagChange}>
+          {tags.map((tag, i) => (
+            <option key={i} value={tag._id}>
+              {tag.name}
+            </option>
+          ))}
+        </select>
       </div>
       <div>
         <button onClick={handlePublish}>Publish</button>

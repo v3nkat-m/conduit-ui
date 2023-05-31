@@ -1,59 +1,24 @@
 import React, { useState, useEffect } from 'react'
-import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
 import Header from '../components/Header'
 import Header2 from '../components/Header2'
 import '../css/ProfilePage.css'
 import ArticleComponent from '../components/ArticleComponent'
+import { useUserStatus } from '../hooks/useUserState'
+import { useRedirect } from '../hooks/useRedirect'
 
 export default function ProfilePage() {
-  const navigate = useNavigate()
+  const navigate = useRedirect()
+  const { isLoggedIn, userRole, isCheckingLogin } = useUserStatus()
+  const [user, setUser] = useState({})
+  const [bio, setBio] = useState('')
+  const [name, setName] = useState('')
+  const [picture, setPicture] = useState(null)
   const [showArticles, setShowArticles] = useState(true)
 
   const handleMenuClick = section => {
     setShowArticles(section === 'articles')
   }
-
-  useEffect(() => {
-    const checkAuthentication = async () => {
-      try {
-        const response = await axios.get('/auth/userstatus')
-        const { isLoggedIn } = response.data
-        if (!isLoggedIn) {
-          navigate('/auth/signup') // Redirect to signup page if not logged in
-        }
-      } catch (error) {
-        console.error('Error checking authentication:', error)
-      }
-    }
-
-    checkAuthentication()
-  }, [navigate])
-  const [isLoggedIn, setIsLoggedIn] = useState(false)
-  const [userRole, setUserRole] = useState(null)
-  const [isCheckingLogin, setIsCheckingLogin] = useState(true)
-
-  useEffect(() => {
-    const fetchUserStatus = async () => {
-      try {
-        const response = await axios.get('/auth/userstatus', {
-          withCredentials: true,
-        })
-        console.log('User response', response.data)
-        setIsLoggedIn(response.data.isLoggedIn)
-        setUserRole(response.data.userRole)
-      } catch (error) {
-        console.error('Error fetching user status', error)
-      } finally {
-        setIsCheckingLogin(false)
-      }
-    }
-    fetchUserStatus()
-  }, [])
-  const [user, setUser] = useState({})
-  const [bio, setBio] = useState('')
-  const [name, setName] = useState('')
-  const [picture, setPicture] = useState(null)
 
   useEffect(() => {
     fetchUserProfile()
@@ -133,7 +98,7 @@ export default function ProfilePage() {
         {/* <p className='profile-email'>Email: {user.email}</p> */}
         <p className='profile-bio'>{user.bio}</p>
       </div>
-      <div>
+      <div className='profile-menu-wrapper'>
         <div className='profile-menu'>
           <div
             className={`menu-item ${showArticles ? 'active' : ''}`}
@@ -153,22 +118,30 @@ export default function ProfilePage() {
             <ArticleComponent user={user} articles={articles} />
           ) : (
             <div>
-              <h3>Update Profile</h3>
-              <div>
-                <label>Bio:</label>
-                <textarea value={bio} onChange={e => setBio(e.target.value)} />
-              </div>
-              <div>
-                <label>name:</label>
+              <div className='profile-update-name'>
+                <label>Name:</label>
                 <input
                   type='text'
                   value={name}
                   onChange={e => setName(e.target.value)}
+                  className='profile-input-pic'
                 />
               </div>
-              <div>
+              <div className='profile-update-bio'>
+                <label>Bio:</label>
+                <textarea
+                  value={bio}
+                  placeholder='Tell us about you'
+                  onChange={e => setBio(e.target.value)}
+                />
+              </div>
+              <div className='profile-update-pic'>
                 <label>Profile Picture:</label>
-                <input type='file' onChange={handlePictureChange} />
+                <input
+                  type='file'
+                  onChange={handlePictureChange}
+                  className='profile-input-pic'
+                />
               </div>
               <button onClick={updateProfile}>Update</button>
             </div>

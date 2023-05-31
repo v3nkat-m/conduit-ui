@@ -8,12 +8,27 @@ export default function UserProfilePage() {
     picture: '',
     bio: '',
   })
+  const [userFollowers, setUserFollowers] = useState({})
+
+  // useEffect(() => {
+  //   const fetchUserFollowers = async () => {
+  //     try {
+  //       const res = await axios.get(`users/${userId}/followers`)
+  //       setUserFollowers(res.data)
+  //     } catch (error) {
+  //       console.error(error)
+  //     }
+  //   }
+
+  //   fetchUserFollowers()
+  // }, [userId])
 
   const fetchProfile = async () => {
     try {
       const response = await axios.get('/users/profile')
       setUser(response.data)
       setData(response.data)
+      console.log('profile', response.data)
     } catch (error) {
       console.error(error)
     }

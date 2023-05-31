@@ -4,6 +4,12 @@
   margin-right: auto;
 }
 
+.profile-menu-wrapper {
+  max-width: 1280px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
 .profile-user {
   font-weight: bold;
   font-size: 3rem;
@@ -21,7 +27,6 @@
   margin-right: 30px;
   font-size: 2.5rem;
   padding-bottom: 10px;
-  border-bottom: 1px black solid;
 }
 
 .profile-img {
@@ -33,6 +38,44 @@
 
 .profile-menu {
   display: flex;
+  margin-left: 30px;
   gap: 3rem;
   font-size: 2rem;
+  border-bottom: 1px solid black;
+}
+
+.profile-content {
+  margin-left: 30px;
+}
+
+.profile-update-bio {
+  display: flex;
+  align-items: center;
+  gap: 5.5rem;
+  margin-bottom: 20px;
+}
+.profile-update-name {
+  display: flex;
+  align-items: center;
+  gap: 4.5rem;
+  margin-bottom: 20px;
+  margin-top: 20px;
+}
+
+.profile-update-pic {
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+  margin-bottom: 20px;
+  margin-top: 20px;
+}
+
+.profile-update-bio > textarea {
+  height: 100px;
+  width: 250px;
+  resize: none;
+}
+
+.profile-update-name > input {
+  width: 250px;
 }

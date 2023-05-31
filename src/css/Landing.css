@@ -1,3 +1,13 @@
 .landing-wrapper {
   background-color: var(--background-color-primary);
 }
+
+.landing-articles {
+  padding-left: 30px;
+}
+
+.landing-articles-wrapper {
+  max-width: 1280px;
+  margin-left: auto;
+  margin-right: auto;
+}

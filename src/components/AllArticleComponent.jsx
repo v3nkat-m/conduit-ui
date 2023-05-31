@@ -1,49 +1,32 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import '../css/ArticleComponent.css'
-import { Link } from 'react-router-dom'
-
-function convertHtmlToPlainText(html) {
-  const doc = new DOMParser().parseFromString(html, 'text/html')
-  return doc.body.textContent || ''
-}
+import { Link, useParams } from 'react-router-dom'
+import { UserContext } from '../context/UserContext'
+import { TagsContext } from '../context/TagsContext'
+import { useFetchUser } from '../hooks/useFetchUser'
+import LoneArticle from './LoneArticle.jsx'
 
 export default function AllArticleComponent({ articles }) {
+  const currentUserId = useContext(UserContext)
+  const { user } = useFetchUser(currentUserId)
+  const tags = useContext(TagsContext)
+  console.log('articles', articles)
+  // console.log('Tags------', tags)
+  // console.log(currentUserId)
+  // console.log({ user })
+  // console.log(articles)
+
   return (
     <div>
-      {articles.map((article, index) => {
-        const date = new Date(article.date)
-        const formattedDate = `${String(date.getDate()).padStart(
-          2,
-          '0'
-        )}-${String(date.getMonth() + 1).padStart(
-          2,
-          '0'
-        )}-${date.getFullYear()}`
-
-        return (
-          <div key={article._id} className='article-card'>
-            <div className='article-flex1'>
-              <img src={article.user.picture} className='article-userimg'></img>
-              <p>{article.user.name}</p>
-              <p>{formattedDate}</p>
-            </div>
-            <div className='article-flex2'>
-              <div className='article-subflex'>
-                <h1 className='article-title'>
-                  <Link to={`/articles/${article._id}`}>
-                    {convertHtmlToPlainText(article.title)}
-                  </Link>
-                </h1>
-                <p className='article-subtitle'>
-                  {convertHtmlToPlainText(article.subtitle)}
-                </p>
-              </div>
-
-              <img src={article.featuredImage} className='article-img'></img>
-            </div>
-          </div>
-        )
-      })}
+      {articles.map((article, index) => (
+        <LoneArticle
+          key={article._id}
+          article={article}
+          currentUserId={currentUserId}
+          tags={tags}
+          user={user}
+        />
+      ))}
     </div>
   )
 }
