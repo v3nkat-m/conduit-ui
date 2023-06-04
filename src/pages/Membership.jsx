@@ -96,7 +96,7 @@ export default function Membership() {
   return (
     <div>
       <div className='membership-wrapper'>
-        {!isLoggedIn && !isCheckingLogin ? <Header /> : <Header2 />}
+        {!isLoggedIn && !isCheckingLogin ? <Header2 /> : <Header />}
         <div className='membership-container'>
           <h1 className='membership-header'>
             Upgrade to <span className='membership-span'>Conduit+</span> and

@@ -5,8 +5,8 @@ import '../css/Login.css'
 import axios from 'axios'
 import { ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
-const BASE_URL = 'http://localhost:3001'
-axios.defaults.baseURL = 'http://localhost:3000'
+const BASE_URL = 'https://conduit-backend-7t9u.onrender.com'
+axios.defaults.baseURL = 'https://conduit-backend-7t9u.onrender.com'
 axios.defaults.withCredentials = true
 
 export default function Login() {
