@@ -5,7 +5,7 @@ import '../css/Login.css'
 import axios from 'axios'
 import { ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
-const BASE_URL = 'https://conduit-backend-7t9u.onrender.com'
+const BASE_URL = 'https://conduit-706z.onrender.com/'
 axios.defaults.baseURL = 'https://conduit-backend-7t9u.onrender.com'
 axios.defaults.withCredentials = true
 
@@ -35,7 +35,7 @@ export default function Login() {
   }
 
   function handleGoogleRedirect() {
-    window.location.href = `${BASE_URL}/auth/google`
+    window.location.href = '/auth/google'
   }
 
   function handlePasswordChange(event) {
