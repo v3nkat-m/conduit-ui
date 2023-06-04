@@ -35,7 +35,7 @@ export default function Login() {
   }
 
   function handleGoogleRedirect() {
-    window.location.href = '/auth/google'
+    window.location.href = `${BASE_URL}/auth/google`
   }
 
   function handlePasswordChange(event) {

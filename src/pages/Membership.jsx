@@ -11,12 +11,14 @@ import { useUserStatus } from '../hooks/useUserState'
 import { loadStripe } from '@stripe/stripe-js'
 import { useFetchUser } from '../hooks/useFetchUser'
 import { UserContextProvider } from '../context/UserContextProvider'
+import { useNavigate } from 'react-router-dom'
 
 const stripePromise = loadStripe(
   'pk_test_51N5aXjSJiG7glEVu3wISGiuqsjAg94BcgwH8d6pE2IlK5SqLbFHB6TdMO3wrJzvlMgmV08WcbyOMGDfRVhn3V28n00hAzjdECn'
 )
 
 export default function Membership() {
+  navigate = useNavigate()
   // const userId = useContext(UserContextProvider) // Replace this with actual userId
   const [currentUserId, setCurrentUserId] = useState(null)
 
@@ -73,10 +75,15 @@ export default function Membership() {
         To upgrade to <span className='membership-span2'>Conduit+</span> you
         need an account. Join or sign in to continue
       </p>
-      <button className='membership-btn'>JOIN CONDUIT NOW</button>
+      <button
+        className='membership-btn'
+        onClick={() => navigate('/auth/signup')}
+      >
+        JOIN CONDUIT NOW
+      </button>
       <p className='membership-signin'>
         Already have a Conduit account?{' '}
-        <a href='/login' className='membership-signin-span'>
+        <a href='/auth/login' className='membership-signin-span'>
           Sign In
         </a>
       </p>
