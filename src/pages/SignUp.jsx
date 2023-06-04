@@ -13,7 +13,7 @@ export default function SignUp() {
 
   function handleSignup() {
     axios
-      .post('http://localhost:3000/auth/signup', { email, password })
+      .post('/auth/signup', { email, password })
       .then(res => {
         // console.log(res.data)
         toast.success('User Created.Kindly proceed to login')
@@ -24,7 +24,7 @@ export default function SignUp() {
       })
   }
   function handleGoogleRedirect() {
-    window.location.href = 'http://localhost:3000/auth/google'
+    window.location.href = '/auth/google'
   }
 
   function handleNameChange(event) {

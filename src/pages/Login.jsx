@@ -20,7 +20,7 @@ export default function Login() {
     setErrorMessage('')
 
     axios
-      .post('http://localhost:3000/auth/login', {
+      .post('/auth/login', {
         email: email,
         password: password,
       })
@@ -35,7 +35,7 @@ export default function Login() {
   }
 
   function handleGoogleRedirect() {
-    window.location.href = 'http://localhost:3000/auth/google'
+    window.location.href = '/auth/google'
   }
 
   function handlePasswordChange(event) {
