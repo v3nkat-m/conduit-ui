@@ -8,7 +8,7 @@ import { Link } from 'react-router-dom'
 
 const StyledMenu = styled(Menu)(({ theme }) => ({
   '& .MuiPaper-root': {
-    width: '250px',
+    width: '125px',
   },
 }))
 

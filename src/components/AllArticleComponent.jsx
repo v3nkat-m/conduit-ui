@@ -1,6 +1,5 @@
 import React, { useContext } from 'react'
 import '../css/ArticleComponent.css'
-import { Link, useParams } from 'react-router-dom'
 import { UserContext } from '../context/UserContext'
 import { TagsContext } from '../context/TagsContext'
 import { useFetchUser } from '../hooks/useFetchUser'
@@ -10,7 +9,7 @@ export default function AllArticleComponent({ articles }) {
   const currentUserId = useContext(UserContext)
   const { user } = useFetchUser(currentUserId)
   const tags = useContext(TagsContext)
-  console.log('articles', articles)
+  // console.log('articles', articles)
   // console.log('Tags------', tags)
   // console.log(currentUserId)
   // console.log({ user })

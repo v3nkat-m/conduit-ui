@@ -78,7 +78,7 @@ export default function Edit() {
       })
       .then(() => {
         // Handle successful save
-        console.log('Changes saved successfully')
+        // console.log('Changes saved successfully')
       })
       .catch(err => {
         // Handle error

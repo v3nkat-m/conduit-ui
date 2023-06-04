@@ -2,6 +2,7 @@
   border-collapse: collapse;
   font-size: 1.3rem;
   width: 100%;
+  font-family: 'inter', 'sans-serif';
 }
 
 .table th,

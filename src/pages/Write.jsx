@@ -5,12 +5,11 @@ import Header from '../components/Header'
 import 'medium-editor/dist/css/medium-editor.min.css'
 import 'medium-editor/dist/css/themes/default.min.css'
 import MediumEditor from 'medium-editor'
-import { useRedirect } from '../hooks/useRedirect'
 import { useUserStatus } from '../hooks/useUserState'
+import Select from 'react-select'
 
+import '../css/write.css'
 export default function Write() {
-  const navigate = useRedirect()
-
   const [title, setTitle] = useState('')
   const [subtitle, setSubtitle] = useState('')
   const [mainContent, setMainContent] = useState('')
@@ -85,15 +84,13 @@ export default function Write() {
     fetchTags()
   }, [])
 
-  const handleTagChange = e => {
-    setSelectedTag(
-      Array.from(e.target.selectedOptions, option => option.innerText)
-    )
+  const handleTagChange = selectedOptions => {
+    setSelectedTag(selectedOptions.map(option => option.label))
   }
 
   const handlePublish = async () => {
     let articleId = null
-    console.log('articleId before:', articleId)
+    // console.log('articleId before:', articleId)
     try {
       // Create the article first
       const response = await axios.post('/articles/createarticle', {
@@ -102,10 +99,10 @@ export default function Write() {
         content: mainContent,
         tags: selectedTag,
       })
-      console.log(response.data) // This is the created article
-      articleId = response.data._id // Store the created article's ID
-      console.log('response.data:', response.data)
-      console.log('articleID after:', articleId)
+      // console.log(response.data)
+      articleId = response.data._id
+      // console.log('response.data:', response.data)
+      // console.log('articleID after:', articleId)
 
       // Redirect or show success message to the user
     } catch (error) {
@@ -130,50 +127,57 @@ export default function Write() {
           }
         )
 
-        console.log(imageUploadResponse.data) // This is the uploaded image data
+        // console.log(imageUploadResponse.data)
       } catch (error) {
         console.error('Error uploading image:', error)
       }
     }
   }
   const handlePictureChange = e => {
-    console.log('e.target-------------------------', e.target.files)
+    // console.log('e.target-------------------------', e.target.files)
     setPicture(e.target.files[0])
   }
 
   return (
-    <div>
-      {isLoggedIn ? <Header2 /> : <Header />}
-      <h1>Write Page</h1>
-      <div>
-        <label>Title:</label>
-        <div ref={titleEditorRef}></div>
+    <>
+      <div>{isLoggedIn ? <Header2 /> : <Header />}</div>
+      <div className='write-wrapper'>
+        <div>
+          <label className='write-label'>Title:</label>
+          <div ref={titleEditorRef}></div>
+        </div>
+        <div>
+          <label className='write-label'>Subtitle:</label>
+          <div ref={subtitleEditorRef}></div>
+        </div>
+        <div>
+          <label className='write-label'>Main Content:</label>
+          <div ref={mainContentEditorRef}></div>
+        </div>
+        <div>
+          <label className='write-label'>Featured Image:</label>
+          <br />
+          <input
+            type='file'
+            onChange={handlePictureChange}
+            className='write-input'
+          />
+        </div>
+        <div>
+          <label className='write-label'>Tags:</label>
+          <Select
+            className='write-margin'
+            isMulti
+            options={tags.map(tag => ({ label: tag.name, value: tag._id }))}
+            onChange={handleTagChange}
+          />
+        </div>
+        <div>
+          <button onClick={handlePublish} className='write-btn'>
+            Publish
+          </button>
+        </div>
       </div>
-      <div>
-        <label>Subtitle:</label>
-        <div ref={subtitleEditorRef}></div>
-      </div>
-      <div>
-        <label>Main Content:</label>
-        <div ref={mainContentEditorRef}></div>
-      </div>
-      <div>
-        <label>Featured Image:</label>
-        <input type='file' onChange={handlePictureChange} />
-      </div>
-      <div>
-        <label>Tags:</label>
-        <select multiple onChange={handleTagChange}>
-          {tags.map((tag, i) => (
-            <option key={i} value={tag._id}>
-              {tag.name}
-            </option>
-          ))}
-        </select>
-      </div>
-      <div>
-        <button onClick={handlePublish}>Publish</button>
-      </div>
-    </div>
+    </>
   )
 }

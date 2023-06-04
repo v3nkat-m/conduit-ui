@@ -10,7 +10,7 @@ export function UserContextProvider({ children }) {
       try {
         const response = await axios.get('/auth/userstatus')
         setCurrentUserId(response.data.UserId)
-        console.log('usercontext response.data:', response.data.UserId)
+        // console.log('usercontext response.data:', response.data.UserId)
       } catch (error) {
         console.error('Error fetching user status', error)
       }

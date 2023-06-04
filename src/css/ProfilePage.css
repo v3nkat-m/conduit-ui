@@ -2,12 +2,14 @@
   max-width: 1280px;
   margin-left: auto;
   margin-right: auto;
+  font-family: 'montserrat', 'san serif';
 }
 
 .profile-menu-wrapper {
   max-width: 1280px;
   margin-left: auto;
   margin-right: auto;
+  font-family: 'montserrat', 'san-serif';
 }
 
 .profile-user {
@@ -51,15 +53,19 @@
 .profile-update-bio {
   display: flex;
   align-items: center;
-  gap: 5.5rem;
+  gap: 6.8rem;
   margin-bottom: 20px;
+  font-family: 'montserrat', 'san-serif';
+  font-weight: bold;
 }
 .profile-update-name {
   display: flex;
   align-items: center;
-  gap: 4.5rem;
+  gap: 5.5rem;
   margin-bottom: 20px;
   margin-top: 20px;
+  font-family: 'montserrat', 'san-serif';
+  font-weight: bold;
 }
 
 .profile-update-pic {
@@ -68,6 +74,8 @@
   gap: 1.2rem;
   margin-bottom: 20px;
   margin-top: 20px;
+  font-family: 'montserrat', 'san-serif';
+  font-weight: bold;
 }
 
 .profile-update-bio > textarea {
@@ -78,4 +86,16 @@
 
 .profile-update-name > input {
   width: 250px;
+}
+
+.profile-modal-flex {
+  display: flex;
+  gap: 1.2em;
+}
+
+.premium-user {
+  display: flex;
+  align-items: center;
+  gap: 0.5em;
+  color: goldenrod;
 }

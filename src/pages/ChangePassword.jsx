@@ -30,49 +30,57 @@ export default function ChangePassword() {
   }
 
   return (
-    <div className='login-wrapper'>
-      <Logo />
-      <div className='login-container'>
-        <div className='login-header'>Change Password</div>
+    <div>
+      <div className='login-logo'>
+        <Logo />
       </div>
-      <div>
-        <div>
-          <div className='login-text'>Email address</div>
-          <input
-            type='text'
-            value={email}
-            onChange={event => setEmail(event.target.value)}
-            placeholder='Enter your mail'
-            onFocus={e => (e.target.placeholder = '')}
-            onBlur={e => (e.target.placeholder = 'Enter your mail')}
-            className='login-input'
-          />
+      <div className='login-color-wrapper'>
+        <div className='login-wrapper'>
+          <div className='login-container'>
+            <div className='login-header'>Change Password</div>
+          </div>
+          <div>
+            <div>
+              <div className='login-text'>Email address</div>
+              <input
+                type='text'
+                value={email}
+                onChange={event => setEmail(event.target.value)}
+                placeholder='Enter your mail'
+                onFocus={e => (e.target.placeholder = '')}
+                onBlur={e => (e.target.placeholder = 'Enter your mail')}
+                className='login-input'
+              />
+            </div>
+            <div>
+              <div className='login-text'>Old Password</div>
+              <input
+                type='password'
+                value={oldPassword}
+                onChange={event => setOldPassword(event.target.value)}
+                placeholder='Enter your old password'
+                onFocus={e => (e.target.placeholder = '')}
+                onBlur={e => (e.target.placeholder = 'Enter your old password')}
+                className='login-input'
+              />
+            </div>
+            <div>
+              <div className='login-text'>New Password</div>
+              <input
+                type='password'
+                value={newPassword}
+                onChange={event => setNewPassword(event.target.value)}
+                placeholder='Enter your new password'
+                onFocus={e => (e.target.placeholder = '')}
+                onBlur={e => (e.target.placeholder = 'Enter your new password')}
+                className='login-input'
+              />
+            </div>
+            <button onClick={handleSubmit} className='login-pwd-btn'>
+              Submit
+            </button>
+          </div>
         </div>
-        <div>
-          <div className='login-text'>Old Password</div>
-          <input
-            type='password'
-            value={oldPassword}
-            onChange={event => setOldPassword(event.target.value)}
-            placeholder='Enter your old password'
-            onFocus={e => (e.target.placeholder = '')}
-            onBlur={e => (e.target.placeholder = 'Enter your old password')}
-            className='login-input'
-          />
-        </div>
-        <div>
-          <div className='login-text'>New Password</div>
-          <input
-            type='password'
-            value={newPassword}
-            onChange={event => setNewPassword(event.target.value)}
-            placeholder='Enter your new password'
-            onFocus={e => (e.target.placeholder = '')}
-            onBlur={e => (e.target.placeholder = 'Enter your new password')}
-            className='login-input'
-          />
-        </div>
-        <button onClick={handleSubmit}>Submit</button>
       </div>
     </div>
   )

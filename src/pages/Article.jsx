@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useContext } from 'react'
 import axios from 'axios'
 import { useParams } from 'react-router-dom'
 import '../css/Article.css'
@@ -12,23 +12,72 @@ import ThumbUpOffAltIcon from '@mui/icons-material/ThumbUpOffAlt'
 import BookmarkAddIcon from '@mui/icons-material/BookmarkAdd'
 import useBookmark from '../hooks/useBookmark'
 import BookmarkAddedIcon from '@mui/icons-material/BookmarkAdded'
+import useFollow from '../hooks/useFollow'
+import PersonAddAltIcon from '@mui/icons-material/PersonAddAlt'
+import HowToRegIcon from '@mui/icons-material/HowToReg'
+import { UserContext } from '../context/UserContext'
+import {
+  FacebookShareButton,
+  TwitterShareButton,
+  WhatsappShareButton,
+  FacebookIcon,
+  TwitterIcon,
+  WhatsappIcon,
+} from 'react-share'
+
 // import { QueryClient, QueryClientProvider } from 'react-query'
 // const queryClient = new QueryClient()
 
 export default function Article() {
+  const shareUrl = window.location.href
+  const currentUserId = useContext(UserContext)
+  // console.log('curresntUserId', currentUserId)
   const { id } = useParams()
+  // console.log('id', id)
   const [article, setArticle] = useState({})
   const { isLoggedIn, userRole, isCheckingLogin } = useUserStatus()
-  const { user } = useFetchUser(article.userID)
+  const { user } = useFetchUser(currentUserId)
+  // console.log('user', user)
+  // const { user } = useFetchUser(article.userID)
   const [hasLiked, setHasLiked] = useState(false)
   const [likesCount, setLikesCount] = useState(0)
   const [currentUser, setCurrentUser] = useState(null)
-  const [hasBookmarked, bookmarkArticle, unbookmarkArticle, setHasBookmarked] =
-    useBookmark(false, id)
   const [isLoading, setIsLoading] = useState(true)
+  const userBookmarks = user?.bookmarks || []
+  // console.log(userBookmarks)
+
+  const userFollowers = user?.followers || []
+  // console.log('user followers', userFollowers)
+
+  const userFollowings = user?.followings || []
+  // console.log('user following', userFollowings)
+
+  const isArticleBookmarked = userBookmarks.includes(article._id)
+  // console.log('isArticleBookmarked', isArticleBookmarked)
+  const [hasBookmarked, bookmarkArticle, unbookmarkArticle, setHasBookmarked] =
+    useBookmark(isArticleBookmarked, article._id)
+
+  // console.log('article._id', article._id)
+  // console.log(article.user)
+  const isFollower = userFollowings.includes(article.user)
+  // console.log('article.user', article.user)
+  // console.log('isFollower', isFollower)
+  // console.log('userFollowings', userFollowings)
+
+  const [hasFollowed, followUser, unfollowUser, setHasFollowed] =
+    useFollow(isFollower)
 
   useEffect(() => {
-    setCurrentUser(user) // Update the current user whenever the user data changes
+    // console.log('Checking if current user is following article user')
+    setHasFollowed(userFollowings.includes(article.user))
+    // console.log('Current user is following article user:', hasFollowed)
+  }, [userFollowings, article.user, article])
+
+  useEffect(() => {
+    setHasBookmarked(userBookmarks.includes(article._id))
+  }, [article, currentUserId, userBookmarks])
+  useEffect(() => {
+    setCurrentUser(user)
   }, [user])
 
   useEffect(() => {
@@ -86,9 +135,6 @@ export default function Article() {
     }
   }
 
-  console.log(useParams())
-  console.log(user)
-
   if (isLoading) {
     return <div>Loading...</div>
   }
@@ -96,7 +142,9 @@ export default function Article() {
   const formattedDate = `${String(date.getDate()).padStart(2, '0')}-${String(
     date.getMonth() + 1
   ).padStart(2, '0')}-${date.getFullYear()}`
+  const isAuthor = currentUserId === article.userID
 
+  // console.log('article.user.pic', article.user.picture)
   return (
     // <QueryClientProvider client={queryClient}>
     <div>
@@ -105,28 +153,66 @@ export default function Article() {
         <div className='article-container'>
           <h1 dangerouslySetInnerHTML={{ __html: article.title }}></h1>
           <div className='article-flex-main'>
-            <img src={user.picture} alt='profilepic' />
+            <img src={article.user.picture} alt='profilepic' />
             <div className='article-flex-2'>
               <div className='article-flex-1'>
                 <p>{article.author}</p>
-                <p>Follow</p>
               </div>
               <p>{formattedDate}</p>
             </div>
-            <div>
-              {hasLiked ? (
-                <ThumbUpAltIcon onClick={unlikeArticle} />
-              ) : (
-                <ThumbUpOffAltIcon onClick={likeArticle} />
+            <div className='article-follow-bookmark-flex'>
+              {!isAuthor && currentUserId && (
+                <button
+                  className='article-follow-btn'
+                  onClick={() =>
+                    hasFollowed
+                      ? unfollowUser(currentUserId, article.userID)
+                      : followUser(currentUserId, article.userID)
+                  }
+                >
+                  {hasFollowed ? (
+                    <div className='article-followed-btn'>
+                      <HowToRegIcon /> Followed
+                    </div>
+                  ) : (
+                    <div className='article-followed-btn'>
+                      <PersonAddAltIcon /> Follow
+                    </div>
+                  )}
+                </button>
               )}
-              <p>{likesCount}</p>
+              {!isAuthor && currentUserId && (
+                <button
+                  onClick={() =>
+                    hasBookmarked ? unbookmarkArticle() : bookmarkArticle()
+                  }
+                >
+                  {hasBookmarked ? <BookmarkAddedIcon /> : <BookmarkAddIcon />}
+                </button>
+              )}
             </div>
-            <div>
-              {hasBookmarked ? (
-                <BookmarkAddedIcon onClick={unbookmarkArticle} />
-              ) : (
-                <BookmarkAddIcon onClick={bookmarkArticle} />
-              )}
+            <div className='article-likes'>
+              {isCheckingLogin ? null : isLoggedIn ? (
+                <div>
+                  {hasLiked ? (
+                    <ThumbUpAltIcon onClick={unlikeArticle} />
+                  ) : (
+                    <ThumbUpOffAltIcon onClick={likeArticle} />
+                  )}
+                  <p>{likesCount}</p>
+                </div>
+              ) : null}
+            </div>
+            <div className='icons mobile-hide'>
+              <FacebookShareButton url={shareUrl} quote={article.title}>
+                <FacebookIcon size={32} round />
+              </FacebookShareButton>
+              <TwitterShareButton url={shareUrl} title={article.title}>
+                <TwitterIcon size={32} round />
+              </TwitterShareButton>
+              <WhatsappShareButton url={shareUrl} title={article.title}>
+                <WhatsappIcon size={32} round />
+              </WhatsappShareButton>
             </div>
           </div>
           <img src={article.featuredImage} alt='Featured' />
@@ -138,10 +224,9 @@ export default function Article() {
             dangerouslySetInnerHTML={{ __html: article.content }}
             className='article-content'
           />
+          <Comments articleId={id} />
         </div>
       </div>
-      <Comments articleId={id} />
     </div>
-    // </QueryClientProvider>
   )
 }

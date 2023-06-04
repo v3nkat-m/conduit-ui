@@ -11,7 +11,7 @@ export const TagsProvider = ({ children }) => {
       try {
         const res = await axios.get('/tags/tags')
         setTags(res.data)
-        console.log('Response-------------------', res)
+        // console.log('Response-------------------', res)
       } catch (error) {
         console.error('Failed to fetch tags:', error)
       }

@@ -73,15 +73,13 @@ export default function OtherUserProfilePage() {
           <div
             className={`profile-menu-item ${!showArticles ? 'active' : ''}`}
             onClick={() => handleMenuClick('edit-profile')}
-          >
-            Reading List
-          </div>
+          ></div>
         </div>
         <div className='profile-content'>
           {showArticles ? (
             <ArticleComponent user={user} articles={articles} />
           ) : (
-            <div>Yes</div>
+            <div></div>
           )}
         </div>
       </div>

@@ -25,21 +25,21 @@ export default function Membership() {
       try {
         const response = await axios.get('/auth/userstatus')
         setCurrentUserId(response.data.UserId)
-        console.log('usercontext response.data:', response.data.UserId)
+        // console.log('usercontext response.data:', response.data.UserId)
       } catch (error) {
         console.error('Error fetching user status', error)
       }
     }
-    console.log('currentuserId', currentUserId)
+    // console.log('currentuserId', currentUserId)
 
     fetchCurrentUserId()
   }, [])
-  console.log('currentuserId', currentUserId)
+  // console.log('currentuserId', currentUserId)
   const { user } = useFetchUser(currentUserId)
   // Fetch user data using custom hook
-  console.log({ user })
+  // console.log({ user })
   useEffect(() => {
-    console.log('currentuserId', currentUserId)
+    // console.log('currentuserId', currentUserId)
   }, [currentUserId])
 
   const handlePayment = async () => {
@@ -73,9 +73,12 @@ export default function Membership() {
         To upgrade to <span className='membership-span2'>Conduit+</span> you
         need an account. Join or sign in to continue
       </p>
-      <button className='membership-btn'>Join Conduit Now</button>
+      <button className='membership-btn'>JOIN CONDUIT NOW</button>
       <p className='membership-signin'>
-        Already have a Conduit account? <a href='/login'>Sign In</a>
+        Already have a Conduit account?{' '}
+        <a href='/login' className='membership-signin-span'>
+          Sign In
+        </a>
       </p>
     </>
   )

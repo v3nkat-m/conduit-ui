@@ -4,6 +4,7 @@ import { styled } from '@mui/system'
 import SearchIcon from '@mui/icons-material/Search'
 import InputBase from '@mui/material/InputBase'
 import axios from 'axios'
+import '../css/search.css'
 
 // Styled component for customized InputBase
 const SearchInput = styled(InputBase)({
@@ -32,7 +33,7 @@ export default function SearchBar() {
         const searchResults = response.data
         setSearchResults(searchResults)
         // Handle the search results as needed
-        console.log(searchResults)
+        // console.log(searchResults)
       } catch (error) {
         console.error('Search error:', error)
         // Handle the error as needed
@@ -50,7 +51,7 @@ export default function SearchBar() {
         />
       )}
       {inputVisible && (
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit} className='search-input'>
           <SearchInput
             type='text'
             placeholder='Search in conduit'

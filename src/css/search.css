@@ -1,0 +1,16 @@
+.search-input {
+  width: 10px;
+}
+
+.search-article-wrapper {
+  max-width: 1280px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 30px;
+}
+
+.search-author {
+  color: blue;
+  font-weight: bold;
+  font-family: 'montserrat';
+}

@@ -8,25 +8,32 @@
 
 .banner-btn {
   display: block;
-  border-radius: 10%;
+  border-radius: 10px;
   margin-top: 50px;
   margin-left: 30px;
   padding: 10px;
-  font-size: 20px;
+  font-size: 25px;
+  font-family: 'inter', 'sans-serif';
+  font-weight: bold;
+  color: black;
   background-color: var(--background-color-secondary);
 }
 
 .banner-h1 {
-  font-size: 5rem;
+  font-size: 4.7rem;
   margin-left: 30px;
   margin-right: 30px;
+  font-family: 'inter', 'sans-serif';
 }
 
 .banner-h3 {
   font-size: 2rem;
+  font-weight: normal;
   margin-left: 30px;
+  margin-top: 50px;
   max-width: 600px;
   margin-right: 30px;
+  font-family: 'inter', 'sans-serif';
 }
 
 @media screen and (min-width: 730px) {

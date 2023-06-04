@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
 
-//I had some problems in some of the demos when the profile page getting displayed even when the user is not logged in. Fixed it in backend. But keeping this still but not using it anywhere in frontend
 export const useRedirect = () => {
   const navigate = useNavigate()
 

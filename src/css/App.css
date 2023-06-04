@@ -4,10 +4,18 @@
 }
 body {
   margin: 0;
-
 }
 .link {
   text-decoration: none;
   color: black;
+  cursor: pointer;
+}
+a,
+button {
+  cursor: pointer;
+  text-decoration: none;
 }
 
+a:hover {
+  text-decoration: underline;
+}

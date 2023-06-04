@@ -12,7 +12,7 @@ export const useUserStatus = () => {
         const response = await axios.get('/auth/userstatus', {
           withCredentials: true,
         })
-        console.log('User response', response.data)
+        // console.log('User response', response.data)
         setIsLoggedIn(response.data.isLoggedIn)
         setUserRole(response.data.userRole)
       } catch (error) {

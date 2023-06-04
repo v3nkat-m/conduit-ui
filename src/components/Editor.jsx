@@ -37,17 +37,17 @@ export default function Editor() {
     // Subscribe to events
     titleEditor.subscribe('editableInput', (event, editable) => {
       const content = titleEditor.getContent()
-      console.log('Title:', content)
+      // console.log('Title:', content)
     })
 
     subtitleEditor.subscribe('editableInput', (event, editable) => {
       const content = subtitleEditor.getContent()
-      console.log('Subtitle:', content)
+      // console.log('Subtitle:', content)
     })
 
     mainContentEditor.subscribe('editableInput', (event, editable) => {
       const content = mainContentEditor.getContent()
-      console.log('Main Content:', content)
+      // console.log('Main Content:', content)
     })
 
     return () => {

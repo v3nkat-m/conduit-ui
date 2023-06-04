@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react'
 import Logo from '../components/Logo'
-import FacebookIcon from '@mui/icons-material/Facebook'
 import GoogleIcon from '@mui/icons-material/Google'
 import '../css/Login.css'
 import axios from 'axios'
@@ -26,11 +25,11 @@ export default function Login() {
         password: password,
       })
       .then(response => {
-        console.log(response.data.message)
+        // console.log(response.data.message)
         window.location.href = `${BASE_URL}/home`
       })
       .catch(error => {
-        console.log(error.response.data.message)
+        // console.log(error.response.data.message)
         setErrorMessage(error.response.data.message)
       })
   }
@@ -59,54 +58,59 @@ export default function Login() {
   }, [errorMessage])
 
   return (
-    <div className='login-wrapper'>
-      <Logo />
-      <div className='login-container'>
-        <div className='login-header'>To continue, log in to Conduit.</div>
-        <button className='login-flex-btn'>
-          <FacebookIcon fontSize='large' />
-          <div>CONTINUE WITH FACEBOOK</div>
-        </button>
-        <button className='login-flex-btn' onClick={handleGoogleRedirect}>
-          <GoogleIcon fontSize='large' />
-          <div>CONTINUE WITH GOOGLE</div>
-        </button>
+    <div className='login-main-wrapper'>
+      <div className='login-logo'>
+        <Logo />
       </div>
-      <div className='login-or'>OR</div>
-      <div>
-        <div>
-          <div className='login-text'>Email address</div>
-          <input
-            type='text'
-            value={email}
-            onChange={handleEmailChange}
-            placeholder='Enter your mail'
-            onFocus={e => (e.target.placeholder = '')}
-            onBlur={e => (e.target.placeholder = 'Enter your mail')}
-            className='login-input'
-          />
-        </div>
-        <div>
-          <div className='login-text'>Password</div>
-          <input
-            type='password'
-            value={password}
-            onChange={handlePasswordChange}
-            placeholder='Enter your password'
-            onFocus={e => (e.target.placeholder = '')}
-            onBlur={e => (e.target.placeholder = 'Enter your password')}
-            className='login-input'
-          />
+      <div className='login-color-wrapper'>
+        <div className='login-wrapper'>
+          <div className='login-container'>
+            <div className='login-header'>To continue, log in to Conduit.</div>
+            {/* <button className='login-flex-btn'>
+              <FacebookIcon fontSize='large' />
+              <div>CONTINUE WITH FACEBOOK</div>
+            </button> */}
+            <button className='login-flex-btn' onClick={handleGoogleRedirect}>
+              <GoogleIcon fontSize='large' />
+              <div>CONTINUE WITH GOOGLE</div>
+            </button>
+          </div>
+          <div className='login-or'>OR</div>
+          <div>
+            <div>
+              <div className='login-text'>Email address</div>
+              <input
+                type='text'
+                value={email}
+                onChange={handleEmailChange}
+                placeholder='Enter your mail'
+                onFocus={e => (e.target.placeholder = '')}
+                onBlur={e => (e.target.placeholder = 'Enter your mail')}
+                className='login-input'
+              />
+            </div>
+            <div>
+              <div className='login-text'>Password</div>
+              <input
+                type='password'
+                value={password}
+                onChange={handlePasswordChange}
+                placeholder='Enter your password'
+                onFocus={e => (e.target.placeholder = '')}
+                onBlur={e => (e.target.placeholder = 'Enter your password')}
+                className='login-input'
+              />
+            </div>
+          </div>
+          <a href='/auth/change-password'>Forgot your password?</a>
+          <div>
+            <button onClick={handleSubmit} className='login-btn'>
+              LOG IN
+            </button>
+          </div>
+          <ToastContainer ref={containerRef} containerId='container' />
         </div>
       </div>
-      <a href='/auth/change-password'>Forgot your password?</a>
-      <div>
-        <div>
-          <div>Remember me</div>
-        </div>
-        <button onClick={handleSubmit}>LOG IN</button>
-      </div>
-      <ToastContainer ref={containerRef} containerId='container' />
     </div>
   )
 }

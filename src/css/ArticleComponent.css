@@ -1,18 +1,20 @@
 .article-userimg {
-  height: 25px;
-  width: 25px;
+  height: 35px;
+  width: 35px;
   object-fit: cover;
   border-radius: 50%;
 }
 
 .article-img {
-  height: 70px;
-  width: 70px;
+  height: 130px;
+  width: 130px;
   object-fit: cover;
 }
 .article-card {
-  height: 150px;
-  width: 450px;
+  display: flex;
+  flex-direction: column;
+  min-height: 175px;
+  min-width: 450px;
   margin-bottom: 10px;
   padding-right: 20px;
   border-bottom: 1px solid grey;
@@ -21,7 +23,7 @@
   display: flex;
   font-size: 1.3rem;
   align-items: center;
-  gap: 1em;
+  gap: 1.5em;
 }
 .article-subflex {
   display: flex;
@@ -35,6 +37,85 @@
 }
 
 .article-flex-end {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.article-tags {
+  display: flex;
+  flex-wrap: wrap;
+  padding-top: 10px;
+}
+
+.article-tag {
+  background-color: gainsboro;
+  padding: 3px 8px;
+  margin-right: 5px;
+  margin-bottom: 5px;
+  color: rgb(74, 73, 73);
+  border-radius: 10px;
+  font-family: 'poppins', 'sans-serif';
+}
+
+.article-flex1 > p {
+  color: rgb(74, 73, 73);
+}
+
+.article-username {
+  font-weight: bold;
+}
+
+.card {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 3; /* number of lines to show */
+  -webkit-box-orient: vertical;
+}
+
+.article-subtitle {
+  font-style: italic;
+  font-size: 1.8rem;
+  font-family: 'poppins', 'sans-serif';
+}
+.article-title > a {
+  font-weight: bold;
+  font-size: 2.8rem;
+  text-decoration: none;
+  color: inherit;
+  font-family: 'poppins', 'sans-serif';
+}
+.article-date {
+  font-family: 'nunito', 'sans-serif';
+}
+.article-content {
+  font-size: 1.4rem;
+  font-family: 'poppins', 'sans-serif';
+}
+
+.article-username {
+  font-size: 1.6rem;
+  text-decoration: none;
+  color: inherit;
+  color: black;
+  margin-top: 14px;
+  font-weight: bold;
+  font-family: 'nunito';
+}
+
+.article-followed-btn {
+  display: flex;
+  gap: 1em;
+  padding: 2px 0;
+}
+
+.article-follow-btn {
+  border-radius: 10px;
+  border: 1px solid black;
+}
+
+.article-bookmark-flex {
   display: flex;
   align-items: center;
   justify-content: space-between;

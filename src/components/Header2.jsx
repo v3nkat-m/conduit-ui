@@ -5,6 +5,7 @@ import SearchBar from './SearchBar'
 import SimpleMenu from './SimpleMenu'
 import { Link, useNavigate } from 'react-router-dom'
 import axios from 'axios'
+import { useUserStatus } from '../hooks/useUserState'
 
 export default function Header2() {
   const navigate = useNavigate()
@@ -16,6 +17,10 @@ export default function Header2() {
       console.error('Error logging out:', error)
     }
   }
+
+  const { userRole } = useUserStatus()
+
+  const isPremium = userRole === 2
 
   return (
     <div className='header2-mainwrapper'>
@@ -32,9 +37,11 @@ export default function Header2() {
           <Link to={'/write'} className='link'>
             <div className='header2-mobilehide'>Write</div>
           </Link>
-          <Link to={'/membership'} className='link'>
-            <div className='header2-mobilehide'>Membership</div>
-          </Link>
+          {isPremium ? null : (
+            <Link to={'/membership'} className='link'>
+              <div className='header2-mobilehide'>Membership</div>
+            </Link>
+          )}
           <Link to={'/profile'} className='link'>
             <div className='header2-mobilehide'>Profile</div>
           </Link>

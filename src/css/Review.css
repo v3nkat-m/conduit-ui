@@ -7,10 +7,13 @@
 
 .review > .review-content {
   font-size: 1.5rem;
+  font-family: 'inter', 'sans-serif';
 }
 
 .review .name {
   font-size: 2rem;
+  font-family: 'nunito', 'sans-serif';
+  font-weight: bold;
 }
 .review {
   padding-left: 20px;
@@ -20,6 +23,7 @@
   text-align: justify;
   border-radius: 20px;
   border: 1px solid brown;
+  font-family: 'nunito', 'sans-serif';
 }
 .review-section-container {
   display: flex;
@@ -44,19 +48,18 @@
   gap: 2rem;
 }
 
-.membership-partners{
+.membership-partners {
   font-weight: bolder;
   color: brown;
 }
 
-
-@media screen and (min-width:800px) {
-  .review-section-container{
+@media screen and (min-width: 800px) {
+  .review-section-container {
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: space-between;
   }
-  .review{
+  .review {
     flex-basis: calc(50% - 10px);
   }
 }

@@ -8,6 +8,7 @@
   padding-top: 20px;
   padding-bottom: 20px;
   padding-right: 20px;
+  font-family: 'inter', 'sans-serif';
 }
 
 .header2-wrapper1 {
@@ -27,13 +28,15 @@
 }
 
 .header2-mainwrapper {
-  background-color: var(--background-color-secondary);
+  /* background-color: var(--background-color-secondary); */
+  background-color: aliceblue;
   border-bottom: solid 1px black;
 }
 
 @media screen and (min-width: 800px) {
   .header2-mobilehide {
     display: block;
+    cursor: pointer;
   }
   .header2-wrapper2 {
     gap: 3em;
