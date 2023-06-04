@@ -18,7 +18,7 @@ const stripePromise = loadStripe(
 )
 
 export default function Membership() {
-  navigate = useNavigate()
+  const navigate = useNavigate()
   // const userId = useContext(UserContextProvider) // Replace this with actual userId
   const [currentUserId, setCurrentUserId] = useState(null)
 
