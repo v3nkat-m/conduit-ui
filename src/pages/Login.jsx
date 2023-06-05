@@ -6,7 +6,7 @@ import axios from 'axios'
 import { ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 const BASE_URL = 'https://conduit-ui.vercel.app/'
-axios.defaults.baseURL = 'https://conduit-backend-7t9u.onrender.com'
+axios.defaults.baseURL = 'https://conduit-app-5zwec.ondigitalocean.app/'
 axios.defaults.withCredentials = true
 
 export default function Login() {
