@@ -5,7 +5,7 @@ import '../css/Login.css'
 import axios from 'axios'
 import { ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
-const BASE_URL = 'https://conduit-ui.vercel.app/'
+const BASE_URL = 'https://coral-app-nkibc.ondigitalocean.app/'
 axios.defaults.baseURL = 'https://conduit-app-5zwec.ondigitalocean.app/'
 axios.defaults.withCredentials = true
 

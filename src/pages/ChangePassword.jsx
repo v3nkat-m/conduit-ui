@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import axios from 'axios'
 import '../css/Login.css'
 import Logo from '../components/Logo'
-axios.defaults.baseURL = 'https://conduit-backend-7t9u.onrender.com'
+axios.defaults.baseURL = 'https://conduit-app-5zwec.ondigitalocean.app/'
 axios.defaults.withCredentials = true
 
 export default function ChangePassword() {
