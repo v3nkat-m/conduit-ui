@@ -1,9 +1,9 @@
 import React, { useState } from 'react'
-import axios from 'axios'
+import api from '../axiosConfig'
 import '../css/Login.css'
 import Logo from '../components/Logo'
 // axios.defaults.baseURL = 'https://main--inquisitive-cocada-92d34c.netlify.app/'
-axios.defaults.withCredentials = true
+api.defaults.withCredentials = true
 
 export default function ChangePassword() {
   const [email, setEmail] = useState('')

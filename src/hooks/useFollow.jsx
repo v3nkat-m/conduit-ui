@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import axios from 'axios'
+import api from '../axiosConfig'
 
 const useFollow = initialState => {
   const [hasFollowed, setHasFollowed] = useState(initialState)
@@ -7,7 +7,7 @@ const useFollow = initialState => {
   const followUser = async (followerId, followedId) => {
     try {
       // console.log('trying to follow a user')
-      await axios.post('/users/follow', {
+      await api.post('/users/follow', {
         followerId,
         followedId,
       })
@@ -21,7 +21,7 @@ const useFollow = initialState => {
 
   const unfollowUser = async (followerId, followedId) => {
     try {
-      await axios.post('/users/unfollow', {
+      await api.post('/users/unfollow', {
         followerId,
         followedId,
       })

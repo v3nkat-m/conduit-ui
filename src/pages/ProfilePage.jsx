@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import axios from 'axios'
+import api from '../axiosConfig'
 import Header from '../components/Header'
 import Header2 from '../components/Header2'
 import '../css/ProfilePage.css'
@@ -44,7 +44,7 @@ export default function ProfilePage() {
 
   const fetchUserProfile = async () => {
     try {
-      const response = await axios.get('/users/profile')
+      const response = await api.get('/users/profile')
       setUser(response.data)
     } catch (error) {
       console.error('Error fetching user profile:', error)
@@ -60,7 +60,7 @@ export default function ProfilePage() {
     }
 
     try {
-      const response = await axios.put('/users/profile', formData, {
+      const response = await api.put('/users/profile', formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
@@ -89,12 +89,12 @@ export default function ProfilePage() {
 
   const fetchUserArticles = async () => {
     try {
-      const response = await axios.get('/users/profile')
+      const response = await api.get('/users/profile')
       setUser(response.data)
 
       // Fetch the user's articles
 
-      const articleResponse = await axios.get(
+      const articleResponse = await api.get(
         `articles/user/${response.data._id}`
       )
       // console.log('article Response-----------', articleResponse)
@@ -110,7 +110,7 @@ export default function ProfilePage() {
   useEffect(() => {
     const fetchBookmarkedArticles = async () => {
       try {
-        const response = await axios.post('/articles/bookmarkedarticles', {
+        const response = await api.post('/articles/bookmarkedarticles', {
           ids: bookmarkedArticleIds, // use the array of IDs here
         })
         setBookmarkArticles(response.data)

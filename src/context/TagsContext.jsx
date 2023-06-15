@@ -1,5 +1,5 @@
 import React, { createContext, useState, useEffect } from 'react'
-import axios from 'axios'
+import api from '../axiosConfig'
 
 export const TagsContext = createContext([])
 
@@ -9,7 +9,7 @@ export const TagsProvider = ({ children }) => {
   useEffect(() => {
     const fetchTags = async () => {
       try {
-        const res = await axios.get('/tags/tags')
+        const res = await api.get('/tags/tags')
         setTags(res.data)
         // console.log('Response-------------------', res)
       } catch (error) {

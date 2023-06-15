@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react'
 import { useParams } from 'react-router-dom'
-import axios from 'axios'
+import api from '../axiosConfig'
 import Header from '../components/Header'
 import Header2 from '../components/Header2'
 import ArticleComponent from '../components/ArticleComponent'
@@ -19,7 +19,7 @@ export default function OtherUserProfilePage() {
 
   const fetchUserProfile = useCallback(async () => {
     try {
-      const response = await axios.get(`/users/profile/${userId}`)
+      const response = await api.get(`/users/profile/${userId}`)
       setUser(response.data)
     } catch (error) {
       console.error('Error fetching user profile:', error)
@@ -34,7 +34,7 @@ export default function OtherUserProfilePage() {
 
   const fetchUserArticles = useCallback(async () => {
     try {
-      const response = await axios.get(`/articles/user/${userId}`)
+      const response = await api.get(`/articles/user/${userId}`)
       setArticles(response.data.articles)
     } catch (error) {
       console.error('Error fetching user articles:', error)

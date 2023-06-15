@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import axios from 'axios'
+import api from '../axiosConfig'
 
 export default function useFetchArticles() {
   const [articles, setArticles] = useState([])
@@ -7,7 +7,7 @@ export default function useFetchArticles() {
   useEffect(() => {
     const fetchArticles = async () => {
       try {
-        const response = await axios.get('articles/allarticles')
+        const response = await api.get('articles/allarticles')
         // console.log(response.data)
         setArticles(response.data)
       } catch (error) {

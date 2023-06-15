@@ -1,5 +1,5 @@
 import { UserContext } from './UserContext'
-import axios from 'axios'
+import api from '../axiosConfig'
 import React, { useState, useEffect } from 'react'
 
 export function UserContextProvider({ children }) {
@@ -8,7 +8,7 @@ export function UserContextProvider({ children }) {
   useEffect(() => {
     const fetchCurrentUserId = async () => {
       try {
-        const response = await axios.get('/auth/userstatus')
+        const response = await api.get('/auth/userstatus')
         setCurrentUserId(response.data.UserId)
         // console.log('usercontext response.data:', response.data.UserId)
       } catch (error) {

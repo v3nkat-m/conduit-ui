@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react'
-import axios from 'axios'
+import api from '../axiosConfig'
 import { UserContext } from '../context/UserContext'
 import { useFetchUser } from '../hooks/useFetchUser'
 import { useUserStatus } from '../hooks/useUserState'
@@ -35,7 +35,7 @@ const Comments = ({ articleId }) => {
   useEffect(() => {
     const fetchComments = async () => {
       try {
-        const response = await axios.get(`/articles/comments/${articleId}`)
+        const response = await api.get(`/articles/comments/${articleId}`)
         setComments(response.data || [])
       } catch (error) {
         console.error('Error fetching comments:', error)
@@ -48,7 +48,7 @@ const Comments = ({ articleId }) => {
     e.preventDefault()
     const content = parentCommentId ? reply : comment
     try {
-      const response = await axios.post(
+      const response = await api.post(
         '/comments/comments',
         { content, articleId, parentCommentId },
         { withCredentials: true }
@@ -76,7 +76,7 @@ const Comments = ({ articleId }) => {
   }
   const handleDelete = async commentId => {
     try {
-      const response = await axios.delete(`comments/comments/${commentId}`, {
+      const response = await api.delete(`comments/comments/${commentId}`, {
         withCredentials: true,
       })
       if (response.status === 200) {

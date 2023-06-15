@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz'
 import Menu from '@mui/material/Menu'
 import MenuItem from '@mui/material/MenuItem'
-import axios from 'axios'
+import api from '../axiosConfig'
 
 function convertHtmlToPlainText(html) {
   const doc = new DOMParser().parseFromString(html, 'text/html')
@@ -29,7 +29,7 @@ export default function ArticleComponent({ user, articles }) {
   }
 
   const handleDelete = async () => {
-    axios.delete(`/articles/deletearticle/${currentArticleId}`)
+    api.delete(`/articles/deletearticle/${currentArticleId}`)
     handleClose()
   }
 

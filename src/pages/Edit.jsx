@@ -1,4 +1,4 @@
-import axios from 'axios'
+import api from '../axiosConfig'
 import MediumEditor from 'medium-editor'
 import { useRef, useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
@@ -24,7 +24,7 @@ export default function Edit() {
   const mainContentEditorRef = useRef()
 
   useEffect(() => {
-    axios.get(`/articles/article/${articleId}`).then(res => {
+    api.get(`/articles/article/${articleId}`).then(res => {
       const article = res.data
       // Initialize the MediumEditors with the existing article data
       const titleEditor = new MediumEditor(titleEditorRef.current)
@@ -70,7 +70,7 @@ export default function Edit() {
     const finalTitle = title || originalTitle
     const finalSubtitle = subtitle || originalSubtitle
     const finalMainContent = mainContent || originalMainContent
-    axios
+    api
       .put(`/articles/editarticle/${articleId}`, {
         title: finalTitle,
         subtitle: finalSubtitle,

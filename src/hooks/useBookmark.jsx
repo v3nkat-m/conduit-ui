@@ -1,12 +1,12 @@
 import { useState } from 'react'
-import axios from 'axios'
+import api from '../axiosConfig'
 
 const useBookmark = (initialState, id) => {
   const [hasBookmarked, setHasBookmarked] = useState(initialState)
 
   const bookmarkArticle = async () => {
     try {
-      await axios.put(`articles/bookmark/${id}`)
+      await api.put(`articles/bookmark/${id}`)
       setHasBookmarked(true)
     } catch (error) {
       console.error('Error bookmarking article:', error)
@@ -15,7 +15,7 @@ const useBookmark = (initialState, id) => {
 
   const unbookmarkArticle = async () => {
     try {
-      await axios.put(`articles/unbookmark/${id}`)
+      await api.put(`articles/unbookmark/${id}`)
       setHasBookmarked(false)
     } catch (error) {
       console.error('Error unbookmarking article:', error)

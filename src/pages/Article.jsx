@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useContext, useMemo } from 'react'
-import axios from 'axios'
+import api from '../axiosConfig'
 import { useParams } from 'react-router-dom'
 import '../css/Article.css'
 import { useUserStatus } from '../hooks/useUserState'
@@ -86,7 +86,7 @@ export default function Article() {
   useEffect(() => {
     const fetchArticle = async () => {
       try {
-        const response = await axios.get(`articles/article/${id}`)
+        const response = await api.get(`articles/article/${id}`)
         const article = response.data
         setArticle(article)
 
@@ -120,7 +120,7 @@ export default function Article() {
 
   const likeArticle = async () => {
     try {
-      await axios.put(`articles/like/${id}`)
+      await api.put(`articles/like/${id}`)
       setHasLiked(true)
       setLikesCount(likesCount + 1)
     } catch (error) {
@@ -130,7 +130,7 @@ export default function Article() {
 
   const unlikeArticle = async () => {
     try {
-      await axios.put(`articles/unlike/${id}`)
+      await api.put(`articles/unlike/${id}`)
       setHasLiked(false)
       setLikesCount(likesCount - 1)
     } catch (error) {

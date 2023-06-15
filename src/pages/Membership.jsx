@@ -6,7 +6,7 @@ import '../css/Review.css'
 import ReviewSection from '../components/ReviewSection'
 import Footer from '../components/Footer'
 import Header2 from '../components/Header2'
-import axios from 'axios'
+import api from '../axiosConfig'
 import { useUserStatus } from '../hooks/useUserState'
 import { loadStripe } from '@stripe/stripe-js'
 import { useFetchUser } from '../hooks/useFetchUser'
@@ -24,7 +24,7 @@ export default function Membership() {
   useEffect(() => {
     const fetchCurrentUserId = async () => {
       try {
-        const response = await axios.get('/auth/userstatus')
+        const response = await api.get('/auth/userstatus')
         setCurrentUserId(response.data.UserId)
         // console.log('usercontext response.data:', response.data.UserId)
       } catch (error) {
@@ -45,7 +45,7 @@ export default function Membership() {
 
   const handlePayment = async () => {
     try {
-      const response = await axios.post('/stripe/create-checkout-session', {
+      const response = await api.post('/stripe/create-checkout-session', {
         userId: user._id,
         userEmail: user.email,
       })

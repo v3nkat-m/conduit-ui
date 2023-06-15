@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import axios from 'axios'
+import api from '../axiosConfig'
 
 export const useUserStatus = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false)
@@ -9,7 +9,7 @@ export const useUserStatus = () => {
   useEffect(() => {
     const fetchUserStatus = async () => {
       try {
-        const response = await axios.get('/auth/userstatus', {
+        const response = await api.get('/auth/userstatus', {
           withCredentials: true,
         })
         // console.log('User response', response.data)

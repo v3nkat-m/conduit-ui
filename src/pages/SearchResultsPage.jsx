@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useLocation } from 'react-router-dom'
-import axios from 'axios'
+import api from '../axiosConfig'
 import SearchArticle from '../components/SearchArticle'
 import { useUserStatus } from '../hooks/useUserState'
 // import { useFetchUser } from '../hooks/useFetchUser'
@@ -16,7 +16,7 @@ export default function SearchResultsPage() {
   useEffect(() => {
     const fetchSearchResults = async () => {
       try {
-        const response = await axios.get('/articles/search', {
+        const response = await api.get('/articles/search', {
           params: { q: searchTerm },
         })
         const searchResults = response.data

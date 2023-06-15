@@ -1,6 +1,6 @@
 import { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
-import axios from 'axios'
+import api from '../axiosConfig'
 
 export const useRedirect = () => {
   const navigate = useNavigate()
@@ -8,7 +8,7 @@ export const useRedirect = () => {
   useEffect(() => {
     const checkAuthentication = async () => {
       try {
-        const response = await axios.get('/auth/userstatus')
+        const response = await api.get('/auth/userstatus')
         const { isLoggedIn } = response.data
         if (!isLoggedIn) {
           navigate('/auth/signup') // Redirect to signup page if not logged in

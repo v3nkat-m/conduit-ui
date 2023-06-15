@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import GoogleIcon from '@mui/icons-material/Google'
 import '../css/Signup.css'
 import Logo from '../components/Logo'
-import axios from 'axios'
+import api from '../axiosConfig'
 import { ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 
@@ -12,7 +12,7 @@ export default function SignUp() {
   const [name, setName] = useState('')
 
   function handleSignup() {
-    axios
+    api
       .post('/auth/signup', { email, password })
       .then(res => {
         // console.log(res.data)

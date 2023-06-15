@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react'
-import axios from 'axios'
+import api from '../axiosConfig'
 import Header2 from '../components/Header2'
 import Header from '../components/Header'
 import 'medium-editor/dist/css/medium-editor.min.css'
@@ -67,7 +67,7 @@ export default function Write() {
 
     const fetchTags = async () => {
       try {
-        const res = await axios.get('tags/tags')
+        const res = await api.get('tags/tags')
         setTags(res.data)
       } catch (err) {
         console.error('Failed to fetch tags:', err)
@@ -91,7 +91,7 @@ export default function Write() {
     // console.log('articleId before:', articleId)
     try {
       // Create the article first
-      const response = await axios.post('/articles/createarticle', {
+      const response = await api.post('/articles/createarticle', {
         title,
         subtitle,
         content: mainContent,

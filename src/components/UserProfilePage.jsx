@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import axios from 'axios'
+import api from '../axiosConfig'
 
 export default function UserProfilePage() {
   const [user, setUser] = useState(null)
@@ -11,7 +11,7 @@ export default function UserProfilePage() {
 
   const fetchProfile = async () => {
     try {
-      const response = await axios.get('/users/profile')
+      const response = await api.get('/users/profile')
       setUser(response.data)
       setData(response.data)
       // console.log('profile', response.data)
@@ -23,7 +23,7 @@ export default function UserProfilePage() {
   const handleUpdate = async e => {
     e.preventDefault()
     try {
-      const response = await axios.put('/users/profile', data)
+      const response = await api.put('/users/profile', data)
       setUser(response.data)
       setEdit(false)
     } catch (error) {

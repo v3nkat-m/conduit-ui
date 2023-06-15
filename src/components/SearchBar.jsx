@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import { styled } from '@mui/system'
 import SearchIcon from '@mui/icons-material/Search'
 import InputBase from '@mui/material/InputBase'
-import axios from 'axios'
+import api from '../axiosConfig'
 import '../css/search.css'
 
 const SearchInput = styled(InputBase)({
@@ -26,7 +26,7 @@ export default function SearchBar() {
     event.preventDefault()
     if (searchTerm.trim() !== '') {
       try {
-        const response = await axios.get('/articles/search', {
+        const response = await api.get('/articles/search', {
           params: { q: searchTerm },
         })
         const searchResults = response.data

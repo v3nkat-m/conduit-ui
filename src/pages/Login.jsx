@@ -2,12 +2,12 @@ import React, { useState, useEffect, useRef } from 'react'
 import Logo from '../components/Logo'
 import GoogleIcon from '@mui/icons-material/Google'
 import '../css/Login.css'
-import axios from 'axios'
+import api from '../axiosConfig'
 import { ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 const BASE_URL = 'https://conduit-backend-2.onrender.com/'
 // axios.defaults.baseURL = 'https://main--inquisitive-cocada-92d34c.netlify.app/'
-axios.defaults.withCredentials = true
+api.defaults.withCredentials = true
 
 export default function Login() {
   const [email, setEmail] = useState('')
@@ -19,7 +19,7 @@ export default function Login() {
   function handleLogin() {
     setErrorMessage('')
 
-    axios
+    api
       .post('/auth/login', {
         email: email,
         password: password,
@@ -35,7 +35,7 @@ export default function Login() {
   }
 
   function handleGoogleRedirect() {
-    window.location.href = '/auth/google'
+    window.location.href = `${BASE_URL}/auth/google`
   }
 
   function handlePasswordChange(event) {
