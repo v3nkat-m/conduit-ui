@@ -5,7 +5,7 @@ import '../css/Login.css'
 import api from '../axiosConfig'
 import { ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
-const BASE_URL = 'https://conduit-backend-2.onrender.com/'
+const BASE_URL = 'https://conduit-backend-2.onrender.com'
 // axios.defaults.baseURL = 'https://main--inquisitive-cocada-92d34c.netlify.app/'
 api.defaults.withCredentials = true
 
