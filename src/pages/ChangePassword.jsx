@@ -14,7 +14,7 @@ export default function ChangePassword() {
     event.preventDefault()
 
     try {
-      const response = await axios.post('/auth/changepassword', {
+      const response = await api.post('/auth/changepassword', {
         email,
         oldPassword,
         newPassword,
