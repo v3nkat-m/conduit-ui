@@ -27,7 +27,7 @@ export default function Login() {
       .then(response => {
         // console.log(response.data.message)
         window.location.href =
-          'https://main--inquisitive-cocada-92d34c.netlify.app/home'
+          'https://main--inquisitive-cocada-92d34c.netlify.app/'
       })
       .catch(error => {
         // console.log(error.response.data.message)
