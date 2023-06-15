@@ -49,7 +49,7 @@ export default function OtherUserProfilePage() {
 
   return (
     <div>
-      <div>{isLoggedIn && isCheckingLogin ? <Header /> : <Header2 />}</div>
+      <div>{isLoggedIn && isCheckingLogin ? <Header2 /> : <Header />}</div>
       <div className='profile-wrapper'>
         <div className='profile-flex-container'>
           <img
