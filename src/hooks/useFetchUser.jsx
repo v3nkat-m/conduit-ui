@@ -1,9 +1,10 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import axios from 'axios'
 
 export const useFetchUser = userId => {
   const [user, setUser] = useState({})
-  const fetchUserProfile = async () => {
+
+  const fetchUserProfile = useCallback(async () => {
     if (!userId) return
     try {
       const response = await axios.get(`/users/profile/${userId}`)
@@ -11,11 +12,11 @@ export const useFetchUser = userId => {
     } catch (error) {
       console.error('Error fetching user profile:', error)
     }
-  }
+  }, [userId])
 
   useEffect(() => {
     fetchUserProfile()
-  }, [userId, fetchUserProfile])
+  }, [fetchUserProfile])
 
   return { user }
 }

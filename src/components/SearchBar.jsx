@@ -6,7 +6,6 @@ import InputBase from '@mui/material/InputBase'
 import axios from 'axios'
 import '../css/search.css'
 
-// Styled component for customized InputBase
 const SearchInput = styled(InputBase)({
   fontSize: '1.5rem',
   width: '150px',
@@ -17,7 +16,7 @@ export default function SearchBar() {
   const [inputVisible, setInputVisible] = useState(false)
   const [searchTerm, setSearchTerm] = useState('')
   const navigate = useNavigate()
-  const [searchResults, setSearchResults] = useState([])
+  // const [searchResults, setSearchResults] = useState([])
 
   const handleChange = event => {
     setSearchTerm(event.target.value)
@@ -31,12 +30,10 @@ export default function SearchBar() {
           params: { q: searchTerm },
         })
         const searchResults = response.data
-        setSearchResults(searchResults)
-        // Handle the search results as needed
+        // setSearchResults(searchResults)
         // console.log(searchResults)
       } catch (error) {
         console.error('Search error:', error)
-        // Handle the error as needed
       }
       navigate(`/search?q=${encodeURIComponent(searchTerm)}`)
     }

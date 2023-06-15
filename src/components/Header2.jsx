@@ -4,7 +4,6 @@ import '../css/Header2.css'
 import SearchBar from './SearchBar'
 import SimpleMenu from './SimpleMenu'
 import { Link, useNavigate } from 'react-router-dom'
-import axios from 'axios'
 import { useUserStatus } from '../hooks/useUserState'
 
 export default function Header2() {

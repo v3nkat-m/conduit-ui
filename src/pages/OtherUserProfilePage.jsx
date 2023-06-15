@@ -10,9 +10,8 @@ import { useRedirect } from '../hooks/useRedirect'
 export default function OtherUserProfilePage() {
   const { userId } = useParams()
   const [user, setUser] = useState({})
-  const navigate = useRedirect
 
-  const { isLoggedIn, userRole, isCheckingLogin } = useUserStatus()
+  const { isLoggedIn, isCheckingLogin } = useUserStatus()
   const [showArticles, setShowArticles] = useState(true)
 
   const handleMenuClick = section => {
@@ -30,7 +29,7 @@ export default function OtherUserProfilePage() {
 
   useEffect(() => {
     fetchUserProfile()
-  }, [userId])
+  }, [userId, fetchUserProfile])
 
   const [articles, setArticles] = useState([]) // New state variable for articles
 
@@ -45,18 +44,14 @@ export default function OtherUserProfilePage() {
 
   useEffect(() => {
     fetchUserArticles()
-  }, [userId])
+  }, [userId, fetchUserArticles])
 
   return (
     <div>
       <div>{isLoggedIn && isCheckingLogin ? <Header2 /> : <Header />}</div>
       <div className='profile-wrapper'>
         <div className='profile-flex-container'>
-          <img
-            src={user.picture}
-            alt='Profile Picture'
-            className='profile-img'
-          />
+          <img src={user.picture} alt='Profile-Pic' className='profile-img' />
           <h1 className='profile-user'>{user.name}</h1>
         </div>
         {/* <p className='profile-email'>Email: {user.email}</p> */}

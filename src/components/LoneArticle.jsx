@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useMemo, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import useBookmark from '../hooks/useBookmark'
 import BookmarkAddIcon from '@mui/icons-material/BookmarkAdd'
@@ -13,10 +13,13 @@ function convertHtmlToPlainText(html) {
 }
 
 export default function LoneArticle({ article, currentUserId, tags, user }) {
-  const userBookmarks = user?.bookmarks || []
+  const userBookmarks = useMemo(() => user?.bookmarks || [], [user?.bookmarks])
   // console.log(userBookmarks)
 
-  const userFollowings = user?.followings || []
+  const userFollowings = useMemo(
+    () => user?.followings || [],
+    [user?.followings]
+  )
   // console.log('user followings', userFollowings)
 
   const isArticleBookmarked = userBookmarks.includes(article._id)

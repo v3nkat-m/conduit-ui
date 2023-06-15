@@ -17,7 +17,7 @@ export default function Write() {
   const [selectedTag, setSelectedTag] = useState(null)
   const [tags, setTags] = useState([])
 
-  const { isLoggedIn, userRole } = useUserStatus()
+  const { isLoggedIn } = useUserStatus()
 
   const titleEditorRef = useRef()
   const subtitleEditorRef = useRef()
@@ -80,8 +80,6 @@ export default function Write() {
       subtitleEditor.destroy()
       mainContentEditor.destroy()
     }
-
-    fetchTags()
   }, [])
 
   const handleTagChange = selectedOptions => {
@@ -117,15 +115,15 @@ export default function Write() {
         imageFormData.append('image', picture)
         imageFormData.append('articleId', articleId)
 
-        const imageUploadResponse = await axios.post(
-          'articles/uploadImage',
-          imageFormData,
-          {
-            headers: {
-              'Content-Type': 'multipart/form-data',
-            },
-          }
-        )
+        // const imageUploadResponse = await axios.post(
+        //   'articles/uploadImage',
+        //   imageFormData,
+        //   {
+        //     headers: {
+        //       'Content-Type': 'multipart/form-data',
+        //     },
+        //   }
+        // )
 
         // console.log(imageUploadResponse.data)
       } catch (error) {

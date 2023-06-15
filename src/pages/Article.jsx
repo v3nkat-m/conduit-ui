@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useContext } from 'react'
+import React, { useEffect, useState, useContext, useMemo } from 'react'
 import axios from 'axios'
 import { useParams } from 'react-router-dom'
 import '../css/Article.css'
@@ -43,13 +43,16 @@ export default function Article() {
   const [likesCount, setLikesCount] = useState(0)
   const [currentUser, setCurrentUser] = useState(null)
   const [isLoading, setIsLoading] = useState(true)
-  const userBookmarks = user?.bookmarks || []
+  const userBookmarks = useMemo(() => user?.bookmarks || [], [user?.bookmarks])
   // console.log(userBookmarks)
 
   // const userFollowers = user?.followers || []
   // console.log('user followers', userFollowers)
 
-  const userFollowings = user?.followings || []
+  const userFollowings = useMemo(
+    () => user?.followings || [],
+    [user?.followings]
+  )
   // console.log('user following', userFollowings)
 
   const isArticleBookmarked = userBookmarks.includes(article._id)
