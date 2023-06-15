@@ -35,7 +35,7 @@ export default function Article() {
   const { id } = useParams()
   // console.log('id', id)
   const [article, setArticle] = useState({})
-  const { isLoggedIn, userRole, isCheckingLogin } = useUserStatus()
+  const { isLoggedIn, isCheckingLogin } = useUserStatus()
   const { user } = useFetchUser(currentUserId)
   // console.log('user', user)
   // const { user } = useFetchUser(article.userID)
@@ -46,7 +46,7 @@ export default function Article() {
   const userBookmarks = user?.bookmarks || []
   // console.log(userBookmarks)
 
-  const userFollowers = user?.followers || []
+  // const userFollowers = user?.followers || []
   // console.log('user followers', userFollowers)
 
   const userFollowings = user?.followings || []
@@ -71,11 +71,11 @@ export default function Article() {
     // console.log('Checking if current user is following article user')
     setHasFollowed(userFollowings.includes(article.user))
     // console.log('Current user is following article user:', hasFollowed)
-  }, [userFollowings, article.user, article])
+  }, [userFollowings, article.user, article, setHasFollowed])
 
   useEffect(() => {
     setHasBookmarked(userBookmarks.includes(article._id))
-  }, [article, currentUserId, userBookmarks])
+  }, [article, currentUserId, userBookmarks, setHasBookmarked])
   useEffect(() => {
     setCurrentUser(user)
   }, [user])
@@ -99,7 +99,7 @@ export default function Article() {
     }
 
     fetchArticle()
-  }, [id])
+  }, [id, user._id])
 
   //Preventing the rendering problem of bookmark annd like icons because of use of async function to fetch user data
   useEffect(() => {
@@ -113,7 +113,7 @@ export default function Article() {
     if (article.bookmarkedBy && currentUser) {
       setHasBookmarked(article.bookmarkedBy.includes(currentUser._id))
     }
-  }, [article, currentUser])
+  }, [article, currentUser, setHasBookmarked])
 
   const likeArticle = async () => {
     try {

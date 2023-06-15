@@ -30,7 +30,7 @@ const Comments = ({ articleId }) => {
   const [replyingTo, setReplyingTo] = useState(null)
   const currentUserId = useContext(UserContext)
   const { user } = useFetchUser(currentUserId)
-  const { isLoggedIn, userRole, isCheckingLogin } = useUserStatus()
+  const { isLoggedIn, isCheckingLogin } = useUserStatus()
 
   useEffect(() => {
     const fetchComments = async () => {

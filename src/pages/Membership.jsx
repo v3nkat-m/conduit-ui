@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import Header from '../components/Header'
 import '../css/Memebership.css'
 import Table from '../components/Table'
@@ -10,7 +10,6 @@ import axios from 'axios'
 import { useUserStatus } from '../hooks/useUserState'
 import { loadStripe } from '@stripe/stripe-js'
 import { useFetchUser } from '../hooks/useFetchUser'
-import { UserContextProvider } from '../context/UserContextProvider'
 import { useNavigate } from 'react-router-dom'
 
 const stripePromise = loadStripe(
@@ -68,7 +67,7 @@ export default function Membership() {
       console.error(err)
     }
   }
-  const { isLoggedIn, userRole, isCheckingLogin } = useUserStatus()
+  const { isLoggedIn, isCheckingLogin } = useUserStatus()
   const NotLoggedInDiv = () => (
     <>
       <p className='membership-para'>

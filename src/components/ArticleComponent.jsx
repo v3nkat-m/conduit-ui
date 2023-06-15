@@ -78,7 +78,11 @@ export default function ArticleComponent({ user, articles }) {
                 </p>
               </div>
 
-              <img src={article.featuredImage} className='article-img'></img>
+              <img
+                src={article.featuredImage}
+                className='article-img'
+                alt='featured-img'
+              ></img>
             </div>
             {/* <p>{convertHtmlToPlainText(article.content)}</p> */}
           </div>

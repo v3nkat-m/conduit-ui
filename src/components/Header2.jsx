@@ -11,7 +11,7 @@ export default function Header2() {
   const navigate = useNavigate()
   const handleLogout = async () => {
     try {
-      const response = await axios.post('/auth/logout')
+      // const response = await axios.post('/auth/logout')
       navigate('/auth/login')
     } catch (error) {
       console.error('Error logging out:', error)

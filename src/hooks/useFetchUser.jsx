@@ -15,7 +15,7 @@ export const useFetchUser = userId => {
 
   useEffect(() => {
     fetchUserProfile()
-  }, [userId])
+  }, [userId, fetchUserProfile])
 
   return { user }
 }

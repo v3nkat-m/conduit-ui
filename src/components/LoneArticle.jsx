@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react'
+import React, { useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import useBookmark from '../hooks/useBookmark'
 import BookmarkAddIcon from '@mui/icons-material/BookmarkAdd'
@@ -33,10 +33,10 @@ export default function LoneArticle({ article, currentUserId, tags, user }) {
     // console.log('Checking if current user is following article user')
     setHasFollowed(userFollowings.includes(article.user._id))
     // console.log('Current user is following article user:', hasFollowed)
-  }, [userFollowings, article.user._id, article])
+  }, [userFollowings, article.user._id, article, setHasFollowed])
   useEffect(() => {
     setHasBookmarked(userBookmarks.includes(article._id))
-  }, [article, currentUserId, userBookmarks])
+  }, [article, currentUserId, userBookmarks, setHasBookmarked])
 
   const date = new Date(article.date)
   const formattedDate = `${String(date.getDate()).padStart(2, '0')}-${String(
