@@ -16,7 +16,7 @@ export default function SearchBar() {
   const [inputVisible, setInputVisible] = useState(false)
   const [searchTerm, setSearchTerm] = useState('')
   const navigate = useNavigate()
-  // const [searchResults, setSearchResults] = useState([])
+  const [setSearchResults] = useState([])
 
   const handleChange = event => {
     setSearchTerm(event.target.value)
@@ -30,7 +30,7 @@ export default function SearchBar() {
           params: { q: searchTerm },
         })
         const searchResults = response.data
-        // setSearchResults(searchResults)
+        setSearchResults(searchResults)
         // console.log(searchResults)
       } catch (error) {
         console.error('Search error:', error)

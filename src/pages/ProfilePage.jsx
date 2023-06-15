@@ -6,14 +6,12 @@ import '../css/ProfilePage.css'
 import ArticleComponent from '../components/ArticleComponent'
 import AllArticleComponent from '../components/AllArticleComponent'
 import { useUserStatus } from '../hooks/useUserState'
-import { useRedirect } from '../hooks/useRedirect'
 import Modal from 'react-modal'
 import StarIcon from '@mui/icons-material/Star'
 
 Modal.setAppElement('#root')
 
 export default function ProfilePage() {
-  const navigate = useRedirect()
   const { isLoggedIn, userRole, isCheckingLogin } = useUserStatus()
   const isPremium = userRole === 2
   const [user, setUser] = useState({})
@@ -132,11 +130,7 @@ export default function ProfilePage() {
       <div>{isLoggedIn && isCheckingLogin ? <Header /> : <Header2 />}</div>
       <div className='profile-wrapper'>
         <div className='profile-flex-container'>
-          <img
-            src={user.picture}
-            alt='Profile Picture'
-            className='profile-img'
-          />
+          <img src={user.picture} alt='Profile-pic' className='profile-img' />
           <h1 className='profile-user'>{user.name}</h1>
           <div className='premium-user'>
             {isPremium ? (

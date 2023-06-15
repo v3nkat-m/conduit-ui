@@ -5,7 +5,6 @@ import Header from '../components/Header'
 import Header2 from '../components/Header2'
 import ArticleComponent from '../components/ArticleComponent'
 import { useUserStatus } from '../hooks/useUserState'
-import { useRedirect } from '../hooks/useRedirect'
 
 export default function OtherUserProfilePage() {
   const { userId } = useParams()
@@ -18,29 +17,29 @@ export default function OtherUserProfilePage() {
     setShowArticles(section === 'articles')
   }
 
-  const fetchUserProfile = async () => {
+  const fetchUserProfile = useCallback(async () => {
     try {
       const response = await axios.get(`/users/profile/${userId}`)
       setUser(response.data)
     } catch (error) {
       console.error('Error fetching user profile:', error)
     }
-  }
+  }, [userId])
 
   useEffect(() => {
     fetchUserProfile()
   }, [userId, fetchUserProfile])
 
-  const [articles, setArticles] = useState([]) // New state variable for articles
+  const [articles, setArticles] = useState([])
 
-  const fetchUserArticles = async () => {
+  const fetchUserArticles = useCallback(async () => {
     try {
       const response = await axios.get(`/articles/user/${userId}`)
       setArticles(response.data.articles)
     } catch (error) {
       console.error('Error fetching user articles:', error)
     }
-  }
+  }, [userId])
 
   useEffect(() => {
     fetchUserArticles()
